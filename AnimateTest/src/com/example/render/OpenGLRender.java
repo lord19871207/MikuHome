@@ -1,4 +1,4 @@
-package com.example.animatetest;
+package com.example.render;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

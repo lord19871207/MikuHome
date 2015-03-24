@@ -1,4 +1,4 @@
-package com.example.animatetest;
+package com.example.activity;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -6,7 +6,11 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import com.example.animatetest.OpenGLRender.IOpenGLDemo;
+import com.example.animatetest.ColorSquare;
+import com.example.animatetest.Polygon;
+import com.example.animatetest.Vertex;
+import com.example.render.OpenGLRender;
+import com.example.render.OpenGLRender.IOpenGLDemo;
 
 import android.app.Activity;
 import android.opengl.GLSurfaceView;

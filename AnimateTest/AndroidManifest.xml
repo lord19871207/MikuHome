@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.animatetest.MainActivity"
+            android:name="com.example.activity.SplashActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,10 @@
         </activity>
         
         <activity
-            android:name="com.example.animatetest.OpenGLESActivity" >
+            android:name="com.example.activity.OpenGLESActivity" >
+        </activity>
+        <activity
+            android:name="com.example.activity.MainActivity" >
         </activity>
     </application>
 

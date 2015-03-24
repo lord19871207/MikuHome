@@ -1,7 +1,11 @@
-package com.example.animatetest;
+package com.example.activity;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+
+import com.example.animatetest.ColorSquare;
+import com.example.animatetest.R;
+import com.example.animatetest.R.menu;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
