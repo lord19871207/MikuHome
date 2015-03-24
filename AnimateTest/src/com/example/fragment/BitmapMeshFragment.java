@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.animatetest.R;
 import com.example.viewport.Magnifier;
+import com.example.viewport.TouchWrapView;
 
 /**
  * 类描述：窗帘效果
@@ -23,6 +24,8 @@ import com.example.viewport.Magnifier;
 public class BitmapMeshFragment extends Fragment{
     public static final String FRAGMENT_MESH = "fragment_mesh";
     public static final String MAGNIFIER = "Magnifier";
+    public static final String TOUCHWRAPVIEW = "Touchwrapview";
+    
     String type="";
     private View meshView;
     
@@ -59,6 +62,9 @@ public class BitmapMeshFragment extends Fragment{
             meshView=inflater.inflate(R.layout.fragment_mesh, container, false);
         }else if(type.equals(MAGNIFIER)){
             meshView=new Magnifier(getActivity());
+        }else if(type.equals(TOUCHWRAPVIEW)){
+            meshView=inflater.inflate(R.layout.fragment_mesh_touch, container, false);
+            
         }
         return meshView;
     }

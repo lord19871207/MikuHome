@@ -20,7 +20,7 @@ public class SplashActivity extends Activity{
 		View view=View.inflate(this, R.layout.activity_splash, null);
 		RelativeLayout view1=new RelativeLayout(this);
 		view1.addView(view);
-		view1.setBackgroundResource(R.drawable.splash_load);
+		view1.setBackgroundResource(R.drawable.cat);
 		setContentView(view1);
 		MyAnimation openAnimation=new MyAnimation();
 		view.startAnimation(openAnimation);

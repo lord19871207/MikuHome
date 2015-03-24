@@ -27,6 +27,7 @@ public class MainActivity extends FragmentActivity {
     protected static final int POLYGONFRAGMENT_DEMO = 0;
     protected static final int BITMAPMESHFRAGMENT_DEMO1 = 1;
     protected static final int BITMAPMESHFRAGMENT_DEMO2 = 2;
+    protected static final int BITMAPMESHFRAGMENT_DEMO3 = 3;
     private ArrayList<String> list;
     private ArrayList<String> drawerList;
     private ListView drawerListView;
@@ -40,7 +41,6 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         manager = getSupportFragmentManager();
         SquareFragment sf = (SquareFragment) manager.findFragmentById(R.id.content_frame);
-
         if (sf == null) {
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.add(R.id.content_frame, new SquareFragment());
@@ -76,6 +76,13 @@ public class MainActivity extends FragmentActivity {
                     transaction2.commit();
 
                     break;
+                    
+                case BITMAPMESHFRAGMENT_DEMO3: // 点击扭曲效果
+                    FragmentTransaction transaction3 = manager.beginTransaction();
+                    transaction3.replace(R.id.content_frame, new BitmapMeshFragment(BitmapMeshFragment.TOUCHWRAPVIEW));
+                    transaction3.commit();
+
+                    break;    
                 default:
                     break;
                 }
