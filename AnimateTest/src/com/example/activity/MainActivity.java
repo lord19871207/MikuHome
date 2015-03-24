@@ -120,9 +120,10 @@ public class MainActivity extends FragmentActivity {
         drawerList.add("OpenGL绘制，颜色渲染");
         drawerList.add("bitmapMesh窗帘效果");
         drawerList.add("magnifier放大镜效果");
-        drawerList.add("Blur高斯模糊效果");
-        drawerList.add("颜色过滤器效果");
         drawerList.add("点击水波纹效果");
+        drawerList.add("Blur高斯模糊效果(正在研究中)");
+        drawerList.add("颜色过滤器效果(正在研究中)");
+        
     }
 
     @Override
