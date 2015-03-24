@@ -201,7 +201,6 @@ public class BitmapMesh {
             return true;
         }
     }
-
     private static class PathAnimation extends Animation
     {
         public interface IAnimationUpdateListener
