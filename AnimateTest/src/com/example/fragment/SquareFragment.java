@@ -1,51 +1,50 @@
-package com.example.activity;
+package com.example.fragment;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import com.example.animatetest.ColorSquare;
-import com.example.animatetest.R;
-import com.example.animatetest.R.menu;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.os.Bundle;
-import android.view.Menu;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.ListView;
 
-public class MainActivity extends Activity {
-    private Button haha;
-    private ColorSquare s;
+import com.example.animatetest.ColorSquare;
+import com.example.animatetest.R;
+//import android.app.Fragment;
+
+public class SquareFragment extends Fragment {
+	private ColorSquare s;
     private int angle;
+    
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+	}
 
-    @SuppressLint("NewApi")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_main);
-        // haha=(Button) findViewById(R.id.alpha_bt);
-        // final Animator anim=AnimatorInflater.loadAnimator(this, R.animator.proper_alpha);
-        // anim.setTarget(haha);
-        // //anim.setInterpolator(new AnticipateOvershootInterpolator());
-        // haha.setOnClickListener(new OnClickListener() {
-        //
-        // @Override
-        // public void onClick(View arg0) {
-        // // TODO Auto-generated method stub
-        // anim.start();
-        // }
-        // });
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE); // (NEW)
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN); // (NEW)
-        GLSurfaceView view = new GLSurfaceView(this);
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+		} catch (ClassCastException e) {
+			throw new ClassCastException(activity.toString()+
+					"must implement onNewItemAddedSetAdapterListerner");
+		}
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+	    GLSurfaceView view = new GLSurfaceView(getActivity());
         s = new ColorSquare();
         angle = 20;
         view.setRenderer(new GLSurfaceView.Renderer() {
@@ -108,22 +107,41 @@ public class MainActivity extends Activity {
                 angle++;
             }
         });
+		return view;
+	}
 
-        setContentView(view);
-        view.setOnClickListener(new OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplication(), OpenGLESActivity.class));
-            }
-        });
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
 
-    }
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+	@Override
+	public void onDetach() {
+		super.onDetach();
+	}
 
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+	}
 }

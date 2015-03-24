@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="item_paper">#EEF8E0A0</color>
+    <color name="item_lines">#FF0000FF</color>
+    <color name="item_margin">#90FF0000</color>
+    <color name="item_text">#AA0000FF</color>
+    
+</resources>

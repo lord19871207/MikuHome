@@ -24,9 +24,6 @@
         </activity>
         
         <activity
-            android:name="com.example.activity.OpenGLESActivity" >
-        </activity>
-        <activity
             android:name="com.example.activity.MainActivity" >
         </activity>
     </application>
