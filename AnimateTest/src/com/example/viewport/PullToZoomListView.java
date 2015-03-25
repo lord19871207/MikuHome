@@ -6,6 +6,7 @@ import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
@@ -77,9 +78,11 @@ public class PullToZoomListView extends ListView implements
 		this.mShadow = new ImageView(paramContext);
 		FrameLayout.LayoutParams localLayoutParams = new FrameLayout.LayoutParams(
 				-1, -2);
+		localLayoutParams.gravity = Gravity.CENTER;
 		localLayoutParams.gravity = 80;
 		this.mShadow.setLayoutParams(localLayoutParams);
 		this.mHeaderContainer.addView(this.mHeaderImage);
+//		mHeaderImage.setLayoutParams(params)
 		this.mHeaderContainer.addView(this.mShadow);
 		addHeaderView(this.mHeaderContainer);
 		this.mScalingRunnalable = new ScalingRunnalable();
@@ -282,6 +285,7 @@ public class PullToZoomListView extends ListView implements
 			localObject = new AbsListView.LayoutParams(paramInt1, paramInt2);
 		((ViewGroup.LayoutParams) localObject).width = paramInt1;
 		((ViewGroup.LayoutParams) localObject).height = paramInt2;
+		
 		this.mHeaderContainer
 				.setLayoutParams((ViewGroup.LayoutParams) localObject);
 		this.mHeaderHeight = paramInt2;

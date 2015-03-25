@@ -50,7 +50,7 @@ public class MainActivity extends FragmentActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 drawLayout.closeDrawers();
-                switch (position) {
+                switch (position-1) {
                 case POLYGONFRAGMENT_DEMO:      // 20面体
                     switchToNextFragment(new PolygonFragment());
                     break;
