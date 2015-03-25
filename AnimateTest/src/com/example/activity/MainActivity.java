@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -29,10 +30,8 @@ public class MainActivity extends FragmentActivity {
     protected static final int BITMAPMESHFRAGMENT_DEMO1 = 1;
     protected static final int BITMAPMESHFRAGMENT_DEMO2 = 2;
     protected static final int BITMAPMESHFRAGMENT_DEMO3 = 3;
-    private ArrayList<String> list;
     private ArrayList<String> drawerList;
     private ObliqueListView drawerListView;
-    private ArrayAdapter<String> adapter;
     private FragmentManager manager;
     private DrawerLayout drawLayout;
 
@@ -41,14 +40,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         manager = getSupportFragmentManager();
-        SquareFragment sf = (SquareFragment) manager.findFragmentById(R.id.content_frame);
-        if (sf == null) {
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.add(R.id.content_frame, new SquareFragment());
-            // transaction.add(R.id.content_frame, new BitmapMeshFragment(BitmapMeshFragment.MAGNIFIER));
-            // 调用remove方法后 addToBackStack(null) 可以将对应的fragment加入到back栈
-            transaction.commit();
-        }
+        switchToNextFragment(new SquareFragment());
         intView();
         intData();
         Toast.makeText(this, "侧滑或点击菜单可以显示更多哦~", Toast.LENGTH_SHORT).show();
@@ -61,28 +53,18 @@ public class MainActivity extends FragmentActivity {
                 drawLayout.closeDrawers();
                 switch (position) {
                 case POLYGONFRAGMENT_DEMO:      // 20面体
-                    FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.content_frame, new PolygonFragment());
-                    transaction.commit();
+                    switchToNextFragment(new PolygonFragment());
                     break;
                 case BITMAPMESHFRAGMENT_DEMO1: // mesh网格形成的窗帘效果
-                    FragmentTransaction transaction1 = manager.beginTransaction();
-                    transaction1.replace(R.id.content_frame, new BitmapMeshFragment(BitmapMeshFragment.FRAGMENT_MESH));
-                    transaction1.commit();
+                    switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.FRAGMENT_MESH));
                     break;
 
                 case BITMAPMESHFRAGMENT_DEMO2: // 放大镜效果
-                    FragmentTransaction transaction2 = manager.beginTransaction();
-                    transaction2.replace(R.id.content_frame, new BitmapMeshFragment(BitmapMeshFragment.MAGNIFIER));
-                    transaction2.commit();
-
+                    switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.MAGNIFIER));
                     break;
                     
                 case BITMAPMESHFRAGMENT_DEMO3: // 点击扭曲效果
-                    FragmentTransaction transaction3 = manager.beginTransaction();
-                    transaction3.replace(R.id.content_frame, new BitmapMeshFragment(BitmapMeshFragment.TOUCHWRAPVIEW));
-                    transaction3.commit();
-
+                    switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.TOUCHWRAPVIEW));
                     break;    
                 default:
                     break;
@@ -92,6 +74,20 @@ public class MainActivity extends FragmentActivity {
 
         });
 
+    }
+
+    /**
+     * 方法描述：
+     * @author 尤洋
+     * @Title: switchToNextFragment
+     * @param squareFragment
+     * @return void
+     * @date 2015-3-25 下午3:36:26
+     */
+    private void switchToNextFragment(Fragment fragment) {
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.content_frame, fragment);
+        transaction.commit();
     }
 
     /**
@@ -116,7 +112,6 @@ public class MainActivity extends FragmentActivity {
      * @date 2015-3-13 上午10:28:38
      */
     private void intData() {
-        list = new ArrayList<String>();
         drawerList = new ArrayList<String>();
         drawerList.add("OpenGL绘制，颜色渲染");
         drawerList.add("bitmapMesh窗帘效果");

@@ -42,7 +42,7 @@ public class ObliqueListView extends ListView {
      */
     public ObliqueListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        resourceIdx = attrs.getAttributeIntValue(null, "xvalue", 5);
+        resourceIdx = attrs.getAttributeIntValue(null, "xvalue", 0);
         resourceIdy = attrs.getAttributeIntValue(null, "yvalue", 0);
         resourceIdz = attrs.getAttributeIntValue(null, "zvalue", 0);
         
