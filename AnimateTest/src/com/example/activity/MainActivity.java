@@ -68,7 +68,8 @@ public class MainActivity extends FragmentActivity {
                 default:
                     break;
                 }
-                Toast.makeText(MainActivity.this, drawerList.get(position), 0).show();
+                if(position>=1)
+                Toast.makeText(MainActivity.this, drawerList.get(position-1), 0).show();
             }
 
         });
