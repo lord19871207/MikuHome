@@ -21,6 +21,7 @@ import com.example.animatetest.R;
 import com.example.fragment.BitmapMeshFragment;
 import com.example.fragment.PolygonFragment;
 import com.example.fragment.SquareFragment;
+import com.example.viewport.ObliqueListView;
 
 public class MainActivity extends FragmentActivity {
 
@@ -30,7 +31,7 @@ public class MainActivity extends FragmentActivity {
     protected static final int BITMAPMESHFRAGMENT_DEMO3 = 3;
     private ArrayList<String> list;
     private ArrayList<String> drawerList;
-    private ListView drawerListView;
+    private ObliqueListView drawerListView;
     private ArrayAdapter<String> adapter;
     private FragmentManager manager;
     private DrawerLayout drawLayout;
@@ -103,7 +104,7 @@ public class MainActivity extends FragmentActivity {
      */
     private void intView() {
         drawLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-        drawerListView = (ListView) findViewById(R.id.left_drawer);
+        drawerListView = (ObliqueListView) findViewById(R.id.left_drawer);
     }
 
     /**
@@ -121,8 +122,8 @@ public class MainActivity extends FragmentActivity {
         drawerList.add("bitmapMesh窗帘效果");
         drawerList.add("magnifier放大镜效果");
         drawerList.add("点击水波纹效果");
-        drawerList.add("Blur高斯模糊效果(正在研究中)");
-        drawerList.add("颜色过滤器效果(正在研究中)");
+        drawerList.add("Blur高斯模糊效果(研究中)");
+        drawerList.add("颜色过滤器效果(研究中)");
         
     }
 
