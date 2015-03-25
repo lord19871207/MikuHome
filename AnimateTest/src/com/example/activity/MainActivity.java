@@ -15,14 +15,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.animatetest.R;
 import com.example.fragment.BitmapMeshFragment;
 import com.example.fragment.PolygonFragment;
 import com.example.fragment.SquareFragment;
-import com.example.viewport.ObliqueListView;
+import com.example.viewport.PullToZoomListView;
 
 public class MainActivity extends FragmentActivity {
 
@@ -31,7 +30,7 @@ public class MainActivity extends FragmentActivity {
     protected static final int BITMAPMESHFRAGMENT_DEMO2 = 2;
     protected static final int BITMAPMESHFRAGMENT_DEMO3 = 3;
     private ArrayList<String> drawerList;
-    private ObliqueListView drawerListView;
+    private PullToZoomListView drawerListView;
     private FragmentManager manager;
     private DrawerLayout drawLayout;
 
@@ -100,7 +99,7 @@ public class MainActivity extends FragmentActivity {
      */
     private void intView() {
         drawLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-        drawerListView = (ObliqueListView) findViewById(R.id.left_drawer);
+        drawerListView = (PullToZoomListView) findViewById(R.id.left_drawer);
     }
 
     /**

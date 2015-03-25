@@ -12,13 +12,14 @@
 
     </FrameLayout>
 
-    <com.example.viewport.ObliqueListView
+    <com.example.viewport.PullToZoomListView
         android:id="@+id/left_drawer"
-        android:layout_width="240dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@android:color/transparent"
         android:choiceMode="singleChoice"
+        headbackground="@drawable/ac"
         android:divider="@android:color/background_light"
         android:dividerHeight="2dp" />
 
