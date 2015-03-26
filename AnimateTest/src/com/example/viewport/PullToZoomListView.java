@@ -13,6 +13,7 @@ import android.view.animation.Interpolator;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
 
 import com.example.animatetest.R;
@@ -81,8 +82,9 @@ public class PullToZoomListView extends ListView implements
 		localLayoutParams.gravity = Gravity.CENTER;
 		localLayoutParams.gravity = 80;
 		this.mShadow.setLayoutParams(localLayoutParams);
+		mHeaderImage.setScaleType(ScaleType.CENTER_CROP);
 		this.mHeaderContainer.addView(this.mHeaderImage);
-//		mHeaderImage.setLayoutParams(params)
+		
 		this.mHeaderContainer.addView(this.mShadow);
 		addHeaderView(this.mHeaderContainer);
 		this.mScalingRunnalable = new ScalingRunnalable();

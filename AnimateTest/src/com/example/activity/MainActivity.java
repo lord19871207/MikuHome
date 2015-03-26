@@ -29,6 +29,7 @@ public class MainActivity extends FragmentActivity {
     protected static final int BITMAPMESHFRAGMENT_DEMO1 = 1;
     protected static final int BITMAPMESHFRAGMENT_DEMO2 = 2;
     protected static final int BITMAPMESHFRAGMENT_DEMO3 = 3;
+    protected static final int BITMAPMESHFRAGMENT_DEMO4 = 4;
     private ArrayList<String> drawerList;
     private PullToZoomListView drawerListView;
     private FragmentManager manager;
@@ -64,7 +65,11 @@ public class MainActivity extends FragmentActivity {
                     
                 case BITMAPMESHFRAGMENT_DEMO3: // 点击扭曲效果
                     switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.TOUCHWRAPVIEW));
-                    break;    
+                    break;
+                    
+                case BITMAPMESHFRAGMENT_DEMO4: // 点击变色效果
+                    switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.COLORIMAGEVIEW));
+                    break;
                 default:
                     break;
                 }
@@ -117,8 +122,8 @@ public class MainActivity extends FragmentActivity {
         drawerList.add("bitmapMesh窗帘效果");
         drawerList.add("magnifier放大镜效果");
         drawerList.add("点击水波纹效果");
-        drawerList.add("Blur高斯模糊效果(研究中)");
         drawerList.add("颜色过滤器效果(研究中)");
+        drawerList.add("Blur高斯模糊效果(研究中)");
         
     }
 

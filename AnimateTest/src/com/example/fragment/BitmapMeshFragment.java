@@ -25,6 +25,7 @@ public class BitmapMeshFragment extends Fragment{
     public static final String FRAGMENT_MESH = "fragment_mesh";
     public static final String MAGNIFIER = "Magnifier";
     public static final String TOUCHWRAPVIEW = "Touchwrapview";
+    public static final String COLORIMAGEVIEW = "ColorImageView";
     
     String type="";
     private View meshView;
@@ -65,6 +66,8 @@ public class BitmapMeshFragment extends Fragment{
         }else if(type.equals(TOUCHWRAPVIEW)){
             meshView=inflater.inflate(R.layout.fragment_mesh_touch, container, false);
             
+        }else if(type.equals(COLORIMAGEVIEW)){
+            meshView=inflater.inflate(R.layout.fragment_color_matrix, container, false);
         }
         return meshView;
     }
