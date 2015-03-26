@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.animatetest.R;
@@ -239,9 +240,22 @@ public class ColorImageView extends ImageView {
         area6 = (float) width;
         height = MeasureSpec.getSize(heightMeasureSpec);
     }
-
+//    @Override
+//    public boolean onTouch(View v, MotionEvent event){
+//        switch (event.getAction()) {
+//        case MotionEvent.ACTION_DOWN:
+//            
+//            break;
+//            
+//
+//        default:
+//            break;
+//        }
+//    }
+    
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
         touchx = event.getX();
         touchy = event.getY();
 
@@ -260,7 +274,8 @@ public class ColorImageView extends ImageView {
         default:
             break;
         }
-        return super.onTouchEvent(event);
+        
+        return true;
     }
 
     /**
