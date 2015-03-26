@@ -5,9 +5,68 @@
     android:orientation="vertical" >
 
     <com.example.viewport.ColorImageView
+        android:id="@+id/color_matrix"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
         colorbackground="@drawable/splash_load" >
     </com.example.viewport.ColorImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/bt1"
+            android:layout_width="0dp"
+            android:layout_height="80dp" 
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_common_orange_n"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/bt2"
+            android:layout_width="0dp"
+            android:layout_height="80dp" 
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_common_orange_n"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/bt3"
+            android:layout_width="0dp"
+            android:layout_height="80dp" 
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_common_orange_n"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/bt4"
+            android:layout_width="0dp"
+            android:layout_height="80dp" 
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_common_orange_n"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/bt5"
+            android:layout_width="0dp"
+            android:layout_height="80dp" 
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_common_orange_n"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/bt6"
+            android:layout_width="0dp"
+            android:layout_height="80dp" 
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_common_orange_n"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
 
 </LinearLayout>

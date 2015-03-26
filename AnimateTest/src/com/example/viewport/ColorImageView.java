@@ -34,7 +34,7 @@ public class ColorImageView extends ImageView {
     private static final int COLOR_OREIGNE = 3;// 橙色
     private static final int COLOR_OLD = 4;// 怀旧
     private static final int COLOR_HIGHCOMPARE = 5;// 高对比度
-    private int index = 0;
+    private int index = 3;
     private Paint mpaint1;
     private Paint mpaint2;
     private Paint mpaint3;
@@ -208,6 +208,10 @@ public class ColorImageView extends ImageView {
         }
         setColorMatrix();
     }
+    
+    public void setIndex(int index){
+        this.index=index;
+    }
 
     /*
      * (non-Javadoc)
@@ -269,17 +273,17 @@ public class ColorImageView extends ImageView {
      */
     private void controlClickArea() {
         if (touchx < area1) {
-            index = 0;
+            setIndex(0);
         } else if (touchx < area2 && touchx > area1) {
-            index = 1;
+            setIndex(1);
         } else if (touchx < area3 && touchx > area2) {
-            index = 2;
+            setIndex(2);
         } else if (touchx < area4 && touchx > area3) {
-            index = 3;
+            setIndex(3);
         } else if (touchx < area5 && touchx > area4) {
-            index = 4;
+            setIndex(4);
         } else if (touchx < area6 && touchx > area5) {
-            index = 5;
+            setIndex(5);
         }
     }
 

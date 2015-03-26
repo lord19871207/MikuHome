@@ -4,5 +4,8 @@
     <string name="app_name">AnimateTest</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="shadow">阴影</string>
+    <string name="gray">灰色</string>
+    <string name="reflect">反色</string>
 
 </resources>
