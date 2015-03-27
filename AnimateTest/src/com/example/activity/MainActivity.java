@@ -128,8 +128,8 @@ public class MainActivity extends FragmentActivity {
         drawerList.add("magnifier放大镜效果");
         drawerList.add("点击水波纹效果");
         drawerList.add("颜色过滤器效果");
-        drawerList.add("Blur高斯模糊效果(研究中)");
-        drawerList.add("后续效果逐渐添加");
+        drawerList.add("三张图片来回切换");
+        drawerList.add("Blur高斯模糊效果");
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
