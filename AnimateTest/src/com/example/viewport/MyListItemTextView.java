@@ -89,7 +89,7 @@ public class MyListItemTextView extends TextView {
         marginPaint.setColorFilter(new ColorMatrixColorFilter(cmatrix));
         linePaint.setColorFilter(new ColorMatrixColorFilter(cmatrix));
         postInvalidate();
-        return super.onTouchEvent(event);
+        return false;
     }
 
 }
