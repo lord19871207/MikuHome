@@ -209,9 +209,9 @@ public class ColorImageView extends ImageView {
         }
         setColorMatrix();
     }
-    
-    public void setIndex(int index){
-        this.index=index;
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     /*
@@ -240,19 +240,20 @@ public class ColorImageView extends ImageView {
         area6 = (float) width;
         height = MeasureSpec.getSize(heightMeasureSpec);
     }
-//    @Override
-//    public boolean onTouch(View v, MotionEvent event){
-//        switch (event.getAction()) {
-//        case MotionEvent.ACTION_DOWN:
-//            
-//            break;
-//            
-//
-//        default:
-//            break;
-//        }
-//    }
-    
+
+    // @Override
+    // public boolean onTouch(View v, MotionEvent event){
+    // switch (event.getAction()) {
+    // case MotionEvent.ACTION_DOWN:
+    //
+    // break;
+    //
+    //
+    // default:
+    // break;
+    // }
+    // }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
@@ -274,7 +275,7 @@ public class ColorImageView extends ImageView {
         default:
             break;
         }
-        
+
         return true;
     }
 

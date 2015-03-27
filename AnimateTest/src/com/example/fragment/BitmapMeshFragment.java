@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.animatetest.R;
 import com.example.viewport.ColorImageView;
 import com.example.viewport.Magnifier;
-import com.example.viewport.TouchWrapView;
+import com.example.viewport.ThirddimensionView;
 
 /**
  * 类描述：窗帘效果
@@ -31,6 +31,7 @@ public class BitmapMeshFragment extends Fragment implements OnClickListener {
     public static final String MAGNIFIER = "Magnifier";
     public static final String TOUCHWRAPVIEW = "Touchwrapview";
     public static final String COLORIMAGEVIEW = "ColorImageView";
+    public static final String THIRDDIMENSIONVIEW = "ThirddimensionView";
     private Activity context;
     String type = "";
     private View meshView;
@@ -78,6 +79,8 @@ public class BitmapMeshFragment extends Fragment implements OnClickListener {
             meshView = inflater.inflate(R.layout.fragment_color_matrix, container, false);
             init(meshView);
 
+        }else if(type.equals(THIRDDIMENSIONVIEW)){
+            meshView = new ThirddimensionView(getActivity());
         }
         return meshView;
     }

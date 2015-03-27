@@ -30,6 +30,7 @@ public class MainActivity extends FragmentActivity {
     protected static final int BITMAPMESHFRAGMENT_DEMO2 = 2;
     protected static final int BITMAPMESHFRAGMENT_DEMO3 = 3;
     protected static final int BITMAPMESHFRAGMENT_DEMO4 = 4;
+    protected static final int BITMAPMESHFRAGMENT_DEMO5 = 5;
     private ArrayList<String> drawerList;
     private PullToZoomListView drawerListView;
     private FragmentManager manager;
@@ -43,6 +44,7 @@ public class MainActivity extends FragmentActivity {
         switchToNextFragment(new SquareFragment());
         intView();
         intData();
+        
         Toast.makeText(this, "侧滑或点击菜单可以显示更多哦~", Toast.LENGTH_SHORT).show();
         drawerListView.setAdapter(new ArrayAdapter<String>(this, R.layout.item_filename, drawerList));
         drawerListView.setOnItemClickListener(new OnItemClickListener() {
@@ -69,6 +71,9 @@ public class MainActivity extends FragmentActivity {
                     
                 case BITMAPMESHFRAGMENT_DEMO4: // 点击变色效果
                     switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.COLORIMAGEVIEW));
+                    break;
+                case BITMAPMESHFRAGMENT_DEMO5: // 三张图片切换
+                    switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.THIRDDIMENSIONVIEW));
                     break;
                 default:
                     break;

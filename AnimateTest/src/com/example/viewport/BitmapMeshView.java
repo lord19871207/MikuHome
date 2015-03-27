@@ -52,7 +52,8 @@ public class BitmapMeshView extends View {
     private int delayOffsetX;
     private Context context;
     private AccelerateInterpolator interpolator;
-
+    float[] verts = new float[(bitmapWidth + 1) * (bitmapHeight + 1) * 2];
+    int[] colors = new int[(bitmapWidth + 1) * (bitmapHeight + 1)];
     private Handler handler = new Handler();
     private Runnable delayRunnable = new Runnable() {
         @Override
@@ -146,7 +147,7 @@ public class BitmapMeshView extends View {
             paint.setShader(null);
 
         }
-        invalidate();
+        postInvalidate();
     }
 
     @Override
@@ -189,8 +190,6 @@ public class BitmapMeshView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-        float[] verts = new float[(bitmapWidth + 1) * (bitmapHeight + 1) * 2];
-        int[] colors = new int[(bitmapWidth + 1) * (bitmapHeight + 1)];
         int index = 0;
 
         float ratio = (float) touchX / (float) width;
