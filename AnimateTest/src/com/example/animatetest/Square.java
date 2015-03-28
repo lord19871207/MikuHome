@@ -52,11 +52,11 @@ public class Square {
      */
     public void draw(GL10 gl){
        //设置逆时针的面，为前面
-        gl.glFrontFace(GL10.GL_CCW);
+//        gl.glFrontFace(GL10.GL_CCW);
         //打开忽略后面的设置
-        gl.glEnable(GL10.GL_CULL_FACE);
+//        gl.glEnable(GL10.GL_CULL_FACE);
         //指出忽略背面
-        gl.glCullFace(GL10.GL_BACK);
+//        gl.glCullFace(GL10.GL_BACK);
         //
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertivesBuffer);
