@@ -9,6 +9,13 @@
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
+      <ImageView
+            android:id="@+id/run_image"
+            android:layout_width="1000dip"
+            android:layout_height="666dip"
+            android:scaleType="matrix"
+            android:background="@drawable/bu4" />  
+        
 
     </FrameLayout>
 

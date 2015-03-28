@@ -12,9 +12,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.animatetest.R;
@@ -24,27 +27,29 @@ import com.example.fragment.SquareFragment;
 import com.example.viewport.PullToZoomListView;
 
 public class MainActivity extends FragmentActivity {
-
+    
     protected static final int POLYGONFRAGMENT_DEMO = 0;
     protected static final int BITMAPMESHFRAGMENT_DEMO1 = 1;
     protected static final int BITMAPMESHFRAGMENT_DEMO2 = 2;
     protected static final int BITMAPMESHFRAGMENT_DEMO3 = 3;
     protected static final int BITMAPMESHFRAGMENT_DEMO4 = 4;
     protected static final int BITMAPMESHFRAGMENT_DEMO5 = 5;
+    protected static final int ROTATE_TRANSFLATE_DEMO = 6;
     private ArrayList<String> drawerList;
     private PullToZoomListView drawerListView;
     private FragmentManager manager;
     private DrawerLayout drawLayout;
+    private ImageView runImage;
+    TranslateAnimation left, right,up,down;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         manager = getSupportFragmentManager();
-        switchToNextFragment(new SquareFragment());
         intView();
         intData();
-        
+        startAnimation();
         Toast.makeText(this, "侧滑或点击菜单可以显示更多哦~", Toast.LENGTH_SHORT).show();
         drawerListView.setAdapter(new ArrayAdapter<String>(this, R.layout.item_filename, drawerList));
         drawerListView.setOnItemClickListener(new OnItemClickListener() {
@@ -54,6 +59,9 @@ public class MainActivity extends FragmentActivity {
 
                 drawLayout.closeDrawers();
                 switch (position-1) {
+                case ROTATE_TRANSFLATE_DEMO:      // opengl 平移和旋转
+                    switchToNextFragment(new SquareFragment());
+                    break;
                 case POLYGONFRAGMENT_DEMO:      // 20面体
                     switchToNextFragment(new PolygonFragment());
                     break;
@@ -89,6 +97,104 @@ public class MainActivity extends FragmentActivity {
     /**
      * 方法描述：
      * @author 尤洋
+     * @Title: startAnimation
+     * @return void
+     * @date 2015-3-28 上午12:42:21
+     */
+    private void startAnimation() {
+        right = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0f,
+                Animation.RELATIVE_TO_PARENT, -1.5f,
+                Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT,
+                0f);
+        left = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, -1.5f,
+                Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT,
+                -0.1f, Animation.RELATIVE_TO_PARENT, -0.1f);
+        up = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0f,
+                Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT,
+                -0.1f, Animation.RELATIVE_TO_PARENT, 0f);
+        down = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, -1.5f,
+                Animation.RELATIVE_TO_PARENT, -1.5f, Animation.RELATIVE_TO_PARENT,
+                0f, Animation.RELATIVE_TO_PARENT, -0.1f);
+        right.setDuration(25000);
+        left.setDuration(25000);
+        up.setDuration(15000);
+        down.setDuration(15000);
+        right.setFillAfter(true);
+        left.setFillAfter(true);
+        down.setFillAfter(true);
+        up.setFillAfter(true);
+        right.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // TODO Auto-generated method stub
+                runImage.startAnimation(down);
+            }
+        });
+        
+        down.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // TODO Auto-generated method stub
+                runImage.startAnimation(left);
+            }
+        });
+        
+        left.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // TODO Auto-generated method stub
+                runImage.startAnimation(up);
+            }
+        });
+        
+        
+        
+        
+        up.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // TODO Auto-generated method stub
+                runImage.startAnimation(right);
+            }
+        });
+        runImage.startAnimation(right);
+    }
+
+    /**
+     * 方法描述：
+     * @author 尤洋
      * @Title: switchToNextFragment
      * @param squareFragment
      * @return void
@@ -111,6 +217,7 @@ public class MainActivity extends FragmentActivity {
     private void intView() {
         drawLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         drawerListView = (PullToZoomListView) findViewById(R.id.left_drawer);
+        runImage=(ImageView) findViewById(R.id.run_image);
     }
 
     /**
@@ -123,14 +230,15 @@ public class MainActivity extends FragmentActivity {
      */
     private void intData() {
         drawerList = new ArrayList<String>();
-        drawerList.add("OpenGL绘制，颜色渲染");
+        drawerList.add("20面体");
         drawerList.add("bitmapMesh窗帘效果");
         drawerList.add("magnifier放大镜效果");
         drawerList.add("点击水波纹效果");
         drawerList.add("颜色过滤器效果");
         drawerList.add("三张图片来回切换");
+        drawerList.add("opengl平移和旋转");
         drawerList.add("Blur高斯模糊效果");
-        drawerList.add("后续效果逐渐添加");
+        
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
