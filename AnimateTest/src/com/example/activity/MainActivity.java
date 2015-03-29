@@ -26,21 +26,31 @@ import com.example.fragment.PolygonFragment;
 import com.example.fragment.SquareFragment;
 import com.example.viewport.PullToZoomListView;
 
+/**
+ * 
+ * 类描述：主界面
+ * 
+ * @Package com.example.activity
+ * @ClassName: MainActivity
+ * @author 尤洋
+ * @mail youyang@ucweb.com
+ * @date 2015-3-28 下午8:05:35
+ */
 public class MainActivity extends FragmentActivity {
-    
-    protected static final int POLYGONFRAGMENT_DEMO = 0;
-    protected static final int BITMAPMESHFRAGMENT_DEMO1 = 1;
-    protected static final int BITMAPMESHFRAGMENT_DEMO2 = 2;
-    protected static final int BITMAPMESHFRAGMENT_DEMO3 = 3;
-    protected static final int BITMAPMESHFRAGMENT_DEMO4 = 4;
-    protected static final int BITMAPMESHFRAGMENT_DEMO5 = 5;
-    protected static final int ROTATE_TRANSFLATE_DEMO = 6;
+    private static final String TAG = "MainActivity";
+    protected static final int POLYGONFRAGMENT_DEMO = 0x0000;// 20面体
+    protected static final int BITMAPMESHFRAGMENT_DEMO1 = 0x0001; // 窗帘效果
+    protected static final int BITMAPMESHFRAGMENT_DEMO2 = 0x0002;// 放大镜效果
+    protected static final int BITMAPMESHFRAGMENT_DEMO3 = 0x0003;// 点击扭曲效果
+    protected static final int BITMAPMESHFRAGMENT_DEMO4 = 0x0004; // 滤镜效果
+    protected static final int BITMAPMESHFRAGMENT_DEMO5 = 0x0005; // 三张图片切换
+    protected static final int ROTATE_TRANSFLATE_DEMO = 0x0006; // opengl实现的三张图片切换
     private ArrayList<String> drawerList;
     private PullToZoomListView drawerListView;
     private FragmentManager manager;
     private DrawerLayout drawLayout;
     private ImageView runImage;
-    TranslateAnimation left, right,up,down;
+    TranslateAnimation left, right, up, down;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +68,7 @@ public class MainActivity extends FragmentActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 drawLayout.closeDrawers();
-                switch (position-1) {
+                switch (position - 1) {
                 case ROTATE_TRANSFLATE_DEMO:      // opengl 平移和旋转
                     switchToNextFragment(new SquareFragment());
                     break;
@@ -72,11 +82,11 @@ public class MainActivity extends FragmentActivity {
                 case BITMAPMESHFRAGMENT_DEMO2: // 放大镜效果
                     switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.MAGNIFIER));
                     break;
-                    
+
                 case BITMAPMESHFRAGMENT_DEMO3: // 点击扭曲效果
                     switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.TOUCHWRAPVIEW));
                     break;
-                    
+
                 case BITMAPMESHFRAGMENT_DEMO4: // 点击变色效果
                     switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.COLORIMAGEVIEW));
                     break;
@@ -86,8 +96,8 @@ public class MainActivity extends FragmentActivity {
                 default:
                     break;
                 }
-                if(position>=1)
-                Toast.makeText(MainActivity.this, drawerList.get(position-1), 0).show();
+                if (position >= 1)
+                    Toast.makeText(MainActivity.this, drawerList.get(position - 1), 0).show();
             }
 
         });
@@ -95,7 +105,8 @@ public class MainActivity extends FragmentActivity {
     }
 
     /**
-     * 方法描述：
+     * 方法描述：背景动态切换动画
+     * 
      * @author 尤洋
      * @Title: startAnimation
      * @return void
@@ -123,7 +134,26 @@ public class MainActivity extends FragmentActivity {
         left.setFillAfter(true);
         down.setFillAfter(true);
         up.setFillAfter(true);
-        right.setAnimationListener(new Animation.AnimationListener() {
+        setAllAnimation(right, runImage, down);
+        setAllAnimation(down, runImage, left);
+        setAllAnimation(left, runImage, up);
+        setAllAnimation(up, runImage, right);
+    }
+
+    /**
+     * 方法描述：设置4个方向的动画
+     * 
+     * @author 尤洋
+     * @Title: setAllAnimation
+     * @param up2
+     * @param runImage2
+     * @param runImage3
+     * @return void
+     * @date 2015-3-28 下午8:09:01
+     */
+    private void setAllAnimation(TranslateAnimation ta, final ImageView runImage2, final TranslateAnimation to
+            ) {
+        ta.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
             }
@@ -135,65 +165,15 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 // TODO Auto-generated method stub
-                runImage.startAnimation(down);
+                runImage2.startAnimation(to);
             }
         });
-        
-        down.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                // TODO Auto-generated method stub
-                runImage.startAnimation(left);
-            }
-        });
-        
-        left.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                // TODO Auto-generated method stub
-                runImage.startAnimation(up);
-            }
-        });
-        
-        
-        
-        
-        up.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                // TODO Auto-generated method stub
-                runImage.startAnimation(right);
-            }
-        });
-        runImage.startAnimation(right);
+        runImage2.startAnimation(to);
     }
 
     /**
      * 方法描述：
+     * 
      * @author 尤洋
      * @Title: switchToNextFragment
      * @param squareFragment
@@ -217,7 +197,7 @@ public class MainActivity extends FragmentActivity {
     private void intView() {
         drawLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         drawerListView = (PullToZoomListView) findViewById(R.id.left_drawer);
-        runImage=(ImageView) findViewById(R.id.run_image);
+        runImage = (ImageView) findViewById(R.id.run_image);
     }
 
     /**
@@ -238,13 +218,11 @@ public class MainActivity extends FragmentActivity {
         drawerList.add("三张图片来回切换");
         drawerList.add("opengl平移和旋转");
         drawerList.add("Blur高斯模糊效果");
-        
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
-        
-        
+
     }
 
     @Override

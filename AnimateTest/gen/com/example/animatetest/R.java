@@ -41,8 +41,9 @@ public final class R {
         public static final int cat=0x7f020007;
         public static final int ccc=0x7f020008;
         public static final int ic_launcher=0x7f020009;
-        public static final int splash_load=0x7f02000a;
-        public static final int ss=0x7f02000b;
+        public static final int jay=0x7f02000a;
+        public static final int qian=0x7f02000b;
+        public static final int splash_load=0x7f02000c;
     }
     public static final class id {
         public static final int action_settings=0x7f0a0010;

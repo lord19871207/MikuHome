@@ -10,7 +10,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.RelativeLayout;
 
 import com.example.animatetest.R;
-import com.example.animation.MyAnimation;
+import com.example.animation.YRotateAnimation;
 
 public class SplashActivity extends Activity{
 
@@ -22,7 +22,7 @@ public class SplashActivity extends Activity{
 		view1.addView(view);
 		view1.setBackgroundResource(R.drawable.cat);
 		setContentView(view1);
-		MyAnimation openAnimation=new MyAnimation();
+		YRotateAnimation openAnimation=new YRotateAnimation();
 		view.startAnimation(openAnimation);
 		openAnimation.setAnimationListener(new AnimationListener() {
 			

@@ -8,16 +8,16 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
 
-public class MyAnimation extends Animation {
+public class YRotateAnimation extends Animation {
 
 	int mCenterX;
 	int mCenterY;
 	Camera camera = new Camera();
 
-	public MyAnimation() {
+	public YRotateAnimation() {
 	}
 
-	public MyAnimation(Context context, AttributeSet attrs) {
+	public YRotateAnimation(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
