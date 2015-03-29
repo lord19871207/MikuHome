@@ -15,6 +15,8 @@ public class SquareFragment extends Fragment  {
     
     
 
+    private OpenGLBookShowView view;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -38,7 +40,7 @@ public class SquareFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        OpenGLBookShowView view = new OpenGLBookShowView(getActivity());
+        view = new OpenGLBookShowView(getActivity());
         
         return view;
     }
@@ -56,11 +58,14 @@ public class SquareFragment extends Fragment  {
     @Override
     public void onPause() {
         super.onPause();
+        view.onPause();
+        
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        view.onResume();
     }
 
     @Override

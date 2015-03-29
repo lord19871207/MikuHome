@@ -25,14 +25,15 @@ import android.view.MotionEvent;
  * @mail youyang@ucweb.com
  * @date 2015-3-28 下午11:13:55
  */
-public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo{
+public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo {
     private int angle;
     private Square square;
     private Square square1;
     private Square square2;
-    private boolean isOntouch=true;
+    private boolean isOntouch = false;
     private PointF start;
     private boolean isLeft;
+
     /**
      * 构造方法描述：
      * 
@@ -41,7 +42,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo{
      * @date 2015-3-28 下午11:13:55
      */
     public OpenGLBookShowView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     /**
@@ -54,7 +55,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo{
      */
     public OpenGLBookShowView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        angle = 120;
+        angle = 90;
         square = new Square();
         square1 = new Square();
         square2 = new Square();
@@ -64,36 +65,44 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo{
                 R.drawable.bu3));
         square2.loadBitmap(BitmapFactory.decodeResource(getResources(),
                 R.drawable.qian));
-        
+
         start = new PointF();
         setRenderer(new OpenGLRender(this));
-        
+
+        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); //
+
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
-            isOntouch=false;
-            angle=angle+120;
+            isOntouch = false;
+            // angle=angle+120;
+
+            setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY); //
             start.set(event.getX(), event.getY());
             Log.i("youyang", "-----isOntouch=false;-----------");
             break;
         case MotionEvent.ACTION_MOVE:
-            isOntouch=false;
+            isOntouch = false;
             float dx = event.getX() - start.x;
-            if(dx>0){
+            if (dx > 0) {
                 isLeft = true;
-                angle=angle-3;
-            }else{
+                angle = angle - 3;
+            } else {
                 isLeft = false;
-                angle=angle+3; 
+                angle = angle + 3;
             }
-            
+
             break;
         case MotionEvent.ACTION_CANCEL:
         case MotionEvent.ACTION_UP:
-            isOntouch=true;
+            // if(angle%90){
+            //
+            // }
+            isOntouch = false;
+            setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); //设置为当数据变化时才更新界面
             Log.i("youyang", "-----isOntouch=true;-----------");
             break;
 
@@ -104,17 +113,16 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo{
         return true;
     }
 
-    
     @Override
     public void drawScene(GL10 gl) {
-        
-        if(isOntouch){
-            if(isLeft){
+        Log.i("youyang", "-----++++++-----------");
+        if (isOntouch) {
+            if (isLeft) {
                 angle--;
-            }else{
+            } else {
                 angle++;
             }
-            
+
         }
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
@@ -146,8 +154,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo{
         gl.glScalef(.5f, .5f, .5f);
         square2.draw(gl);
         gl.glPopMatrix();
-        
-        
-//        
+
+        //
     }
 }
