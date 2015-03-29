@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.opengl.GLSurfaceView;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -25,7 +26,7 @@ import android.view.MotionEvent;
  * @mail youyang@ucweb.com
  * @date 2015-3-28 下午11:13:55
  */
-public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo {
+public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Runnable {
     private int angle;
     private Square square;
     private Square square1;
@@ -33,6 +34,8 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo {
     private boolean isOntouch = false;
     private PointF start;
     private boolean isLeft;
+    private int d;
+    private boolean isplus;
 
     /**
      * 构造方法描述：
@@ -77,6 +80,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
+            removeCallbacks(this);
             isOntouch = false;
             // angle=angle+120;
 
@@ -102,7 +106,23 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo {
             //
             // }
             isOntouch = false;
-            setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); //设置为当数据变化时才更新界面
+            setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); // 设置为当数据变化时才更新界面
+
+            int a = Math.abs(angle % 360 - 90);
+            int b = Math.abs(angle % 360 - 210);
+            int c = Math.abs(angle % 360 - 330);
+            post(this);
+            d = getMiin(a, b, c);
+
+            if (d == a && angle % 360 - 90 < 0) {
+                isplus = true;
+            } else if (d == b && angle % 360 - 210 < 0) {
+                isplus = true;
+            } else if (d == c && angle % 360 - 330 < 0) {
+                isplus = true;
+            } else {
+                isplus = false;
+            }
             Log.i("youyang", "-----isOntouch=true;-----------");
             break;
 
@@ -111,6 +131,22 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo {
         }
 
         return true;
+    }
+
+    /**
+     * 方法描述：
+     * 
+     * @author 尤洋
+     * @Title: getMax
+     * @param a
+     * @param b
+     * @param c
+     * @return
+     * @return int
+     * @date 2015-3-29 下午2:31:44
+     */
+    private int getMiin(int a, int b, int c) {
+        return Math.min(Math.min(a, b), c);
     }
 
     @Override
@@ -154,7 +190,18 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo {
         gl.glScalef(.5f, .5f, .5f);
         square2.draw(gl);
         gl.glPopMatrix();
+    }
 
-        //
+    @Override
+    public void run() {
+        for (int i = 0; i < d; i++) {
+            if (isplus) {
+                angle++;
+            } else {
+                angle--;
+            }
+            SystemClock.sleep(10);
+            requestRender();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.fragment;
 
 import android.app.Activity;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -41,7 +42,7 @@ public class SquareFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         view = new OpenGLBookShowView(getActivity());
-        
+        view.getHolder().setFormat(PixelFormat.TRANSLUCENT);//设置透明
         return view;
     }
 
