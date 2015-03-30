@@ -1,21 +1,27 @@
 package com.example.viewport;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+
 import javax.microedition.khronos.opengles.GL10;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.PointF;
+import android.opengl.GLSurfaceView;
+import android.opengl.GLU;
+import android.os.SystemClock;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 
 import com.example.animatetest.R;
 import com.example.animatetest.Square;
 import com.example.render.OpenGLRender;
 import com.example.render.OpenGLRender.IOpenGLDemo;
-
-import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.PointF;
-import android.opengl.GLSurfaceView;
-import android.os.SystemClock;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 
 /**
  * 类描述：
@@ -32,65 +38,58 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
     private Square square1;
     private Square square2;
     private boolean isOntouch = false;
-    private PointF start;
     private boolean isLeft;
     private int d;
     private boolean isplus;
-
-    /**
-     * 构造方法描述：
-     * 
-     * @Title: OpenGLBookShowView
-     * @param context
-     * @date 2015-3-28 下午11:13:55
-     */
+    private float mPreviousX;
+    
     public OpenGLBookShowView(Context context) {
         this(context, null);
     }
 
-    /**
-     * 构造方法描述：
-     * 
-     * @Title: OpenGLBookShowView
-     * @param context
-     * @param attrs
-     * @date 2015-3-28 下午11:13:55
-     */
     public OpenGLBookShowView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init_model();
+        setRenderer(new OpenGLRender(this));
+        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); //
+    }
+
+    /**
+     * 方法描述：初始化数据
+     * @author 尤洋
+     * @Title: init_model
+     * @return void
+     * @date 2015-3-30 上午3:56:34
+     */
+    private void init_model() {
         angle = 90;
         square = new Square();
         square1 = new Square();
         square2 = new Square();
-        square.loadBitmap(BitmapFactory.decodeResource(getResources(),
-                R.drawable.bu1));
-        square1.loadBitmap(BitmapFactory.decodeResource(getResources(),
-                R.drawable.bu3));
-        square2.loadBitmap(BitmapFactory.decodeResource(getResources(),
-                R.drawable.qian));
-
-        start = new PointF();
-        setRenderer(new OpenGLRender(this));
-
-        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); //
-
+        Bitmap bitmap = decodeSampledBitmapFromResource
+                (getResources(), R.drawable.bu1, 384, 512);
+        Bitmap bitmap1 = decodeSampledBitmapFromResource
+                (getResources(), R.drawable.bu2, 384, 512);
+        Bitmap bitmap2 = decodeSampledBitmapFromResource
+                (getResources(), R.drawable.qian, 384, 512);
+        square.loadBitmap(bitmap);
+        square1.loadBitmap(bitmap1);
+        square2.loadBitmap(bitmap2);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        float x = event.getX();
+
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
             removeCallbacks(this);
             isOntouch = false;
-            // angle=angle+120;
-
             setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY); //
-            start.set(event.getX(), event.getY());
-            Log.i("youyang", "-----isOntouch=false;-----------");
             break;
         case MotionEvent.ACTION_MOVE:
             isOntouch = false;
-            float dx = event.getX() - start.x;
+            float dx = x - mPreviousX;
             if (dx > 0) {
                 isLeft = true;
                 angle = angle - 3;
@@ -102,9 +101,6 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
             break;
         case MotionEvent.ACTION_CANCEL:
         case MotionEvent.ACTION_UP:
-            // if(angle%90){
-            //
-            // }
             isOntouch = false;
             setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); // 设置为当数据变化时才更新界面
 
@@ -129,12 +125,14 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         default:
             break;
         }
+        mPreviousX = x;
+
 
         return true;
     }
 
     /**
-     * 方法描述：
+     * 方法描述：获取三个数字钟的最小值
      * 
      * @author 尤洋
      * @Title: getMax
@@ -147,19 +145,21 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
      */
     private int getMiin(int a, int b, int c) {
         return Math.min(Math.min(a, b), c);
+        
     }
 
     @Override
     public void drawScene(GL10 gl) {
-        Log.i("youyang", "-----++++++-----------");
         if (isOntouch) {
             if (isLeft) {
                 angle--;
             } else {
                 angle++;
             }
-
         }
+        // 测试材质效果
+        // drawMateril(gl);
+
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
         gl.glTranslatef(0, 0, -6);
@@ -192,6 +192,48 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         gl.glPopMatrix();
     }
 
+    /**
+     * 方法描述：绘制材质
+     * 
+     * @author 尤洋
+     * @Title: drawMateril
+     * @return void
+     * @date 2015-3-30 上午12:23:30
+     */
+    private void drawMateril(GL10 gl) {
+        float[] mat_amb = { 0.2f * 0.4f, 0.2f * 0.4f,
+                0.2f * 1.0f, 1.0f, };
+        float[] mat_diff = { 0.4f, 0.4f, 1.0f, 1.0f, };
+        float[] mat_spec = { 1.0f, 1.0f, 1.0f, 1.0f, };
+
+        ByteBuffer mabb = ByteBuffer.allocateDirect(mat_amb.length * 4);
+        mabb.order(ByteOrder.nativeOrder());
+        FloatBuffer mat_ambBuf = mabb.asFloatBuffer();
+        mat_ambBuf.put(mat_amb);
+        mat_ambBuf.position(0);
+
+        ByteBuffer mdbb = ByteBuffer.allocateDirect(mat_diff.length * 4);
+        mdbb.order(ByteOrder.nativeOrder());
+        FloatBuffer mat_diffBuf = mdbb.asFloatBuffer();
+        mat_diffBuf.put(mat_diff);
+        mat_diffBuf.position(0);
+
+        ByteBuffer msbb = ByteBuffer.allocateDirect(mat_spec.length * 4);
+        msbb.order(ByteOrder.nativeOrder());
+        FloatBuffer mat_specBuf = msbb.asFloatBuffer();
+        mat_specBuf.put(mat_spec);
+        mat_specBuf.position(0);
+
+        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK,
+                GL10.GL_AMBIENT, mat_ambBuf);
+        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK,
+                GL10.GL_DIFFUSE, mat_diffBuf);
+        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK,
+                GL10.GL_SPECULAR, mat_specBuf);
+        gl.glMaterialf(GL10.GL_FRONT_AND_BACK,
+                GL10.GL_SHININESS, 64.0f);
+    }
+
     @Override
     public void run() {
         for (int i = 0; i < d; i++) {
@@ -204,4 +246,116 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
             requestRender();
         }
     }
+
+    /**
+     * 初始化光源
+     */
+    @Override
+    public void initScene(GL10 gl) {
+        float[] mat_amb = { 0.2f * 1.0f, 0.2f * 0.4f, 0.2f * 0.4f, 1.0f, };
+        float[] mat_diff = { 1.0f, 0.4f, 0.4f, 1.0f, };
+        float[] mat_spec = { 1.0f, 1.0f, 0.5f, 1.0f, };
+
+        ByteBuffer mabb = ByteBuffer.allocateDirect(mat_amb.length * 4);
+        mabb.order(ByteOrder.nativeOrder());
+        FloatBuffer mat_ambBuf = mabb.asFloatBuffer();
+        mat_ambBuf.put(mat_amb);
+        mat_ambBuf.position(0);
+
+        ByteBuffer mdbb = ByteBuffer.allocateDirect(mat_diff.length * 4);
+        mdbb.order(ByteOrder.nativeOrder());
+        FloatBuffer mat_diffBuf = mdbb.asFloatBuffer();
+        mat_diffBuf.put(mat_diff);
+        mat_diffBuf.position(0);
+
+        ByteBuffer msbb = ByteBuffer.allocateDirect(mat_spec.length * 4);
+        msbb.order(ByteOrder.nativeOrder());
+        FloatBuffer mat_specBuf = msbb.asFloatBuffer();
+        mat_specBuf.put(mat_spec);
+        mat_specBuf.position(0);
+
+        gl.glClearColor(0.8f, 0.8f, 0.8f, 0.0f);
+        gl.glEnable(GL10.GL_DEPTH_TEST);
+        gl.glEnable(GL10.GL_CULL_FACE);
+        gl.glShadeModel(GL10.GL_SMOOTH);
+
+        gl.glEnable(GL10.GL_LIGHTING);
+        gl.glEnable(GL10.GL_LIGHT0);
+
+        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, mat_ambBuf);
+        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, mat_diffBuf);
+        gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SPECULAR, mat_specBuf);
+        gl.glMaterialf(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, 64.0f);
+
+        gl.glLoadIdentity();
+        GLU.gluLookAt(gl, 0.0f, 0.0f, 10.0f,
+                0.0f, 0.0f, 0.0f,
+                0.0f, 1.0f, 0.0f);
+
+    }
+
+    
+    /**
+     * google文档上提供的计算图片 宽高最大是你要想的宽高的 2的几次冥
+     *  Calculate the largest inSampleSize value that is a power of 2 and keeps both
+        height and width larger than the requested height and width.
+     * @author 尤洋
+     * @Title: calculateInSampleSize
+     * @param options
+     * @param reqWidth
+     * @param reqHeight
+     * @return
+     * @return int
+     * @date 2015-3-30 上午2:14:50
+     */
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    /**
+     * 
+     * 方法描述： 保持不失真的情况下 压缩图片
+     * @author 尤洋
+     * @Title: decodeSampledBitmapFromResource
+     * @param res    资源对象
+     * @param resId    资源id
+     * @param reqWidth  需要的图片的宽度
+     * @param reqHeight 需要的图片的高度
+     * @return
+     * @return Bitmap
+     * @date 2015-3-30 上午2:16:44
+     */
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+            int reqWidth, int reqHeight) {
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+
 }

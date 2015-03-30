@@ -32,6 +32,9 @@ public class OpenGLRender implements Renderer {
         GLU.gluPerspective(gl, 45.0f, (float) width / (float) height, 0.1f, 100.0f);
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
+        if(openGLDemo!=null){
+//            openGLDemo.initScene(gl);
+        }
     }
 
     @Override
@@ -43,6 +46,7 @@ public class OpenGLRender implements Renderer {
     }
     public interface IOpenGLDemo{
         public void drawScene(GL10 gl);
+        public void initScene(GL10 gl);
     }
     
 }

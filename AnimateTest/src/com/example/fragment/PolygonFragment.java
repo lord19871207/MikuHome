@@ -117,4 +117,13 @@ public class PolygonFragment extends Fragment implements IOpenGLDemo{
         gl.glPopMatrix();
         
     }
+
+    /* (non-Javadoc)
+     * @see com.example.render.OpenGLRender.IOpenGLDemo#initScene(javax.microedition.khronos.opengles.GL10)
+     */
+    @Override
+    public void initScene(GL10 gl) {
+        // TODO Auto-generated method stub
+        
+    }
 }
