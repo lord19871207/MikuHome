@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.animatetest.R;
 import com.example.viewport.OpenGLBookShowView;
 
 // import android.app.Fragment;
@@ -42,7 +43,7 @@ public class SquareFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         view = new OpenGLBookShowView(getActivity());
-        view.getHolder().setFormat(PixelFormat.TRANSLUCENT);//设置透明
+        view.setBackgroundResource(R.drawable.bu3);
         return view;
     }
 

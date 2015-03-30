@@ -15,8 +15,6 @@
             android:layout_height="666dip"
             android:scaleType="matrix"
             android:background="@drawable/bu4" />  
-        
-
     </FrameLayout>
 
     <com.example.viewport.PullToZoomListView

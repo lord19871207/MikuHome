@@ -10,12 +10,11 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.PointF;
+import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.os.SystemClock;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.animatetest.R;
@@ -50,6 +49,9 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
     public OpenGLBookShowView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init_model();
+        setZOrderOnTop(true);//将view放到顶端
+        setEGLConfigChooser(8,8,8,8,16,0);
+        getHolder().setFormat(PixelFormat.TRANSLUCENT);//设置透明
         setRenderer(new OpenGLRender(this));
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); //
     }
@@ -85,7 +87,8 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         case MotionEvent.ACTION_DOWN:
             removeCallbacks(this);
             isOntouch = false;
-            setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY); //
+            //渲染器会不停地渲染场景
+            setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY); 
             break;
         case MotionEvent.ACTION_MOVE:
             isOntouch = false;
@@ -97,12 +100,13 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
                 isLeft = false;
                 angle = angle + 3;
             }
-
+            
             break;
         case MotionEvent.ACTION_CANCEL:
         case MotionEvent.ACTION_UP:
             isOntouch = false;
-            setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); // 设置为当数据变化时才更新界面
+         // 设置为当数据变化时才更新界面
+            setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); 
 
             int a = Math.abs(angle % 360 - 90);
             int b = Math.abs(angle % 360 - 210);
@@ -119,15 +123,12 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
             } else {
                 isplus = false;
             }
-            Log.i("youyang", "-----isOntouch=true;-----------");
             break;
 
         default:
             break;
         }
         mPreviousX = x;
-
-
         return true;
     }
 
@@ -145,7 +146,6 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
      */
     private int getMiin(int a, int b, int c) {
         return Math.min(Math.min(a, b), c);
-        
     }
 
     @Override
@@ -160,21 +160,24 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         // 测试材质效果
         // drawMateril(gl);
 
+        //第一张图片
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
         gl.glTranslatef(0, 0, -6);
         gl.glPushMatrix();
+        //从（0，0，0）到（x，y，z） 的轴沿着逆时针旋转
         gl.glRotatef(-angle, 0, 1, 0);
         gl.glTranslatef(1, 0, 0);
         gl.glRotatef(-angle, 0, -1, 0);
         gl.glScalef(.5f, .5f, .5f);
         square.draw(gl);
-
-        /*
-         * 要理解（先旋转再平移） 和 （先平移再旋转） 的区别 角度递增的情况下 先旋转再平移的话 其实是以平移的距离为半径 进行旋转 而先平移再旋转 其实是自转 原因是 永远都按照 旋转之后的坐标系进行平移
-         */
         gl.glPopMatrix();
-
+        /*
+         * 要理解（先旋转再平移） 和 （先平移再旋转） 的区别 角度递增的情况下 
+         * 先旋转再平移的话 其实是以平移的距离为半径 进行旋转 而先平移再旋转 
+         * 其实是自转 原因是 永远都按照 旋转之后的坐标系进行平移
+         */
+        //第二张图片
         gl.glPushMatrix();
         gl.glRotatef(120 - angle, 0, 1, 0);
         gl.glTranslatef(1, 0, 0);
@@ -183,6 +186,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         square1.draw(gl);
         gl.glPopMatrix();
 
+        //第三张图片
         gl.glPushMatrix();
         gl.glRotatef(240 - angle, 0, 1, 0);
         gl.glTranslatef(1, 0, 0);
@@ -194,7 +198,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
 
     /**
      * 方法描述：绘制材质
-     * 
+     * 使用之后未显示材质效果，暂时不使用
      * @author 尤洋
      * @Title: drawMateril
      * @return void
@@ -314,19 +318,14 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
-
         if (height > reqHeight || width > reqWidth) {
-
             final int halfHeight = height / 2;
             final int halfWidth = width / 2;
-
-            
             while ((halfHeight / inSampleSize) > reqHeight
                     && (halfWidth / inSampleSize) > reqWidth) {
                 inSampleSize *= 2;
             }
         }
-
         return inSampleSize;
     }
 
@@ -349,13 +348,11 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(res, resId, options);
-
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeResource(res, resId, options);
     }
-
+    
 }

@@ -50,9 +50,9 @@ public class Mesh {
     private int indexNum = -1;
 
     // 平移的坐标
-    protected float x;
-    protected float y;
-    protected float z;
+    protected float x=0;
+    protected float y=0;
+    protected float z=0;
 
     // 旋转的角度
     public float rx;
@@ -67,12 +67,13 @@ public class Mesh {
         // 设置忽略背面
         gl.glCullFace(GL10.GL_BACK);
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+        
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, verteicesbuffer);
         gl.glColor4f(rgba[0], rgba[1], rgba[2], rgba[3]);
 
         if (colorBuffer != null) {
             gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
-            gl.glColorPointer(4, GL10.GL_FLOAT, 0, indicesBuffer);
+            gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
         }
         
         if(isLoadTexture){
