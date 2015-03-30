@@ -1,4 +1,4 @@
-package com.example.animatetest;
+package com.example.graphmodel;
 
 import java.nio.FloatBuffer;
 

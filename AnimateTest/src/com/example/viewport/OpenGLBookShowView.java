@@ -18,7 +18,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.example.animatetest.R;
-import com.example.animatetest.Square;
+import com.example.graphmodel.Square;
 import com.example.render.OpenGLRender;
 import com.example.render.OpenGLRender.IOpenGLDemo;
 

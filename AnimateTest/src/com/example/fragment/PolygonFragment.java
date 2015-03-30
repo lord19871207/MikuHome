@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.animatetest.ColorSquare;
-import com.example.animatetest.Polygon;
-import com.example.animatetest.Vertex;
+import com.example.graphmodel.ColorSquare;
+import com.example.graphmodel.Polygon;
+import com.example.graphmodel.Vertex;
 import com.example.render.OpenGLRender;
 import com.example.render.OpenGLRender.IOpenGLDemo;
 

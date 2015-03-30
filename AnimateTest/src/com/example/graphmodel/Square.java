@@ -1,4 +1,4 @@
-package com.example.animatetest;
+package com.example.graphmodel;
 
 import javax.microedition.khronos.opengles.GL10;
 
