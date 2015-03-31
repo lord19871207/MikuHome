@@ -7,9 +7,7 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
@@ -18,6 +16,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.example.animatetest.R;
+import com.example.common.util.Utils;
 import com.example.graphmodel.Square;
 import com.example.render.OpenGLRender;
 import com.example.render.OpenGLRender.IOpenGLDemo;
@@ -40,6 +39,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
     private int d;
     private boolean isplus;
     private float mPreviousX;
+    private float y;
     
     public OpenGLBookShowView(Context context) {
         this(context, null);
@@ -67,11 +67,11 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         square = new Square();
         square1 = new Square();
         square2 = new Square();
-        Bitmap bitmap = decodeSampledBitmapFromResource
+        Bitmap bitmap = Utils.decodeSampledBitmapFromResource
                 (getResources(), R.drawable.bu1, 384, 512);
-        Bitmap bitmap1 = decodeSampledBitmapFromResource
+        Bitmap bitmap1 = Utils.decodeSampledBitmapFromResource
                 (getResources(), R.drawable.bu2, 384, 512);
-        Bitmap bitmap2 = decodeSampledBitmapFromResource
+        Bitmap bitmap2 = Utils.decodeSampledBitmapFromResource
                 (getResources(), R.drawable.qian, 384, 512);
         square.loadBitmap(bitmap);
         square1.loadBitmap(bitmap1);
@@ -90,6 +90,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
             setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY); 
             break;
         case MotionEvent.ACTION_MOVE:
+            y = event.getY();
             isOntouch = false;
             float dx = x - mPreviousX;
             if (dx > 0) {
@@ -158,16 +159,16 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         }
         // 测试材质效果
         // drawMateril(gl);
-
-        //第一张图片
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
         gl.glTranslatef(0, 0, -6);
+        
+      //第一张图片
         gl.glPushMatrix();
         //从（0，0，0）到（x，y，z） 的轴沿着逆时针旋转
-        gl.glRotatef(-angle, 0, 1, 0);
+        gl.glRotatef(-angle, 0, 1, 0.5f-y/getHeight());
         gl.glTranslatef(1, 0, 0);
-        gl.glRotatef(-angle, 0, -1, 0);
+        gl.glRotatef(-angle, 0, -1, y/getHeight()-0.5f);
         gl.glScalef(.5f, .5f, .5f);
         square.draw(gl);
         gl.glPopMatrix();
@@ -178,18 +179,18 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
          */
         //第二张图片
         gl.glPushMatrix();
-        gl.glRotatef(120 - angle, 0, 1, 0);
+        gl.glRotatef(120 - angle, 0, 1, 0.5f-y/getHeight());
         gl.glTranslatef(1, 0, 0);
-        gl.glRotatef(120 - angle, 0, -1, 0);
+        gl.glRotatef(120 - angle, 0, -1, y/getHeight()-0.5f);
         gl.glScalef(.5f, .5f, .5f);
         square1.draw(gl);
         gl.glPopMatrix();
 
         //第三张图片
         gl.glPushMatrix();
-        gl.glRotatef(240 - angle, 0, 1, 0);
+        gl.glRotatef(240 - angle, 0, 1, 0.5f-y/getHeight());
         gl.glTranslatef(1, 0, 0);
-        gl.glRotatef(240 - angle, 0, -1, 0);
+        gl.glRotatef(240 - angle, 0, -1, y/getHeight()-0.5f);
         gl.glScalef(.5f, .5f, .5f);
         square2.draw(gl);
         gl.glPopMatrix();
@@ -297,61 +298,5 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
 
     }
 
-    
-    /**
-     * google文档上提供的计算图片 宽高最大是你要想的宽高的 2的几次冥
-     *  Calculate the largest inSampleSize value that is a power of 2 and keeps both
-        height and width larger than the requested height and width.
-     * @author 尤洋
-     * @Title: calculateInSampleSize
-     * @param options
-     * @param reqWidth
-     * @param reqHeight
-     * @return
-     * @return int
-     * @date 2015-3-30 上午2:14:50
-     */
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-        if (height > reqHeight || width > reqWidth) {
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-        return inSampleSize;
-    }
-
-    /**
-     * 
-     * 方法描述： 保持不失真的情况下 压缩图片
-     * @author 尤洋
-     * @Title: decodeSampledBitmapFromResource
-     * @param res    资源对象
-     * @param resId    资源id
-     * @param reqWidth  需要的图片的宽度
-     * @param reqHeight 需要的图片的高度
-     * @return
-     * @return Bitmap
-     * @date 2015-3-30 上午2:16:44
-     */
-    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-            int reqWidth, int reqHeight) {
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);
-    }
     
 }

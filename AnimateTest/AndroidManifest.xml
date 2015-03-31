@@ -30,6 +30,13 @@
         <activity
             android:name="com.example.activity.DragLayoutActivity" >
         </activity>
+        <activity
+            android:name="com.example.activity.BookcontentActivity" >
+        </activity>
+        <activity
+            android:name="com.example.activity.CubeActivity" >
+        </activity>
+        
     </application>
 
 </manifest>

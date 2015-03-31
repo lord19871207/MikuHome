@@ -3,6 +3,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Scroller;
 
+import com.example.interfaces.BookSimulationPageFlip;
+
 /**
  * 类描述：仿真翻页的接口类
  * 
@@ -25,7 +28,7 @@ import android.widget.Scroller;
  * @mail youyang@ucweb.com
  * @date 2015-3-31 上午10:11:17
  */
-public abstract class BookSimulationPageFlip_impl {
+public class BookSimulationPageFlip_impl {
     private static final int DIRECTION_RIGHT = 1;//从右往左滑动
 
     private static final int DIRECTION_LEFT = 0;//从左往右滑动
@@ -35,9 +38,9 @@ public abstract class BookSimulationPageFlip_impl {
 
     private Bitmap bitmap_0;  // old
     private Bitmap bitmap_1;  // new
-    private Activity context;
+    private Context context;
 
-    private FlingRunnable mFlingRunnable = new FlingRunnable();
+//    private FlingRunnable mFlingRunnable = new FlingRunnable();
     /** 显示区域宽度 */
     public int mWidth;
     /** 显示区域高度 */
@@ -55,7 +58,7 @@ public abstract class BookSimulationPageFlip_impl {
 
     private GradientDrawable mCurBitmapShadowDrawableRL;
 
-
+    
     
     
     /** 画笔 */
@@ -118,78 +121,33 @@ public abstract class BookSimulationPageFlip_impl {
     private GradientDrawable mFrontShadowDrawableVLR;
     private GradientDrawable mFrontShadowDrawableVRL;
 
+    private BookSimulationPageFlip impl;
+
     // ----------------仿真翻页属性------------------------
 
-    public BookSimulationPageFlip_impl(Activity context) {
+    public BookSimulationPageFlip_impl(Context context) {
         super();
         this.context = context;
-        mTouch = getTouchPoint();
-        bitmap_0 = loadBitmap(0);
-        bitmap_1 = loadBitmap(1);
         mScreenWidth = getScreenWidth(context);
         mScreenHeight = getScreenHeight(context);
         mWidth=mScreenWidth;
         mHeight=mScreenHeight;
-        initCurBitmapShadow(getShadowColor());
-        initSpecEffObjects();
-        initSpecEffShadowObjects(getCurrentSimulationTheme());
+        paint=new Paint();
+        paint.setColor(Color.BLUE);
 
     }
-
-    /**
-     * 方法描述：
-     * 
-     * @author 尤洋
-     * @Title: getShadowColor
-     * @return
-     * @return int[]
-     * @date 2015-3-31 上午11:56:50
-     */
-    public abstract int[] getShadowColor();
-
-    /**
-     * 方法描述：加载控件中的bitmap图片
-     * 
-     * @param int type为返回的bitmap是哪一页 0 1
-     * @return void
-     * @date 2015-3-31 上午10:13:51
-     */
-    public abstract Bitmap loadBitmap(int type);
-
-    /**
-     * 方法描述：设置触摸点的坐标
-     * 
-     * @param x
-     * @param y
-     * @return Point
-     * @date 2015-3-31 上午10:46:51
-     */
-    public abstract PointF getTouchPoint();
-
-    /**
-     * 方法描述：获取背景主题
-     * 
-     * @return int
-     * @date 2015-3-31 上午11:15:27
-     */
-    public abstract int getCurrentSimulationTheme();
-
-    /**
-     * 方法描述：动画结束时需要执行的操作
-     * 
-     * @return void
-     * @date 2015-3-31 上午11:37:48
-     */
-    public abstract void onAnimationEnd();
     
+    public void setNeedImpl(BookSimulationPageFlip impl){
+        this.impl=impl;
+        mTouch = impl.getTouchPoint();
+        bitmap_0 = impl.loadBitmap(0);
+        bitmap_1 = impl.loadBitmap(1);
+        initCurBitmapShadow(impl.getShadowColor());
+        initSpecEffObjects();
+        initSpecEffShadowObjects(impl.getCurrentSimulationTheme());
+    }
+
     
-    /**
-     * 方法描述：获取滑动方向，返回数字1  表示从右向左滑动
-     * @author 尤洋
-     * @return int
-     * @date 2015-3-31 下午1:11:58
-     */
-    public abstract int getDirection() ;
 
     /**
      * 初始化特效相关对象
@@ -754,8 +712,8 @@ public abstract class BookSimulationPageFlip_impl {
         if (mTouch.y >= mHeight) {
             t = mHeight - dI;
         }
-        if (getDirection() == DIRECTION_RIGHT
-                || (getDirection() == DIRECTION_LEFT
+        if (impl.getDirection() == DIRECTION_RIGHT
+                || (impl.getDirection() == DIRECTION_LEFT
                         && mTouch.y > mHeight * 0.38 && mTouch.y < mHeight * 0.62)) {
             t = mHeight - dI;
         }
@@ -772,7 +730,7 @@ public abstract class BookSimulationPageFlip_impl {
             mTouch.y = dI;
         }
         if (mTouch.y > mHeight * 0.38 && mTouch.y < mHeight * 0.62) {
-            if (getDirection() == DIRECTION_RIGHT) {
+            if (impl.getDirection() == DIRECTION_RIGHT) {
                 mTouch.x -= ((mWidth - mTouch.x)) / 3;
                 if (mTouch.x >= mWidth) {
                     mTouch.x = mWidth;
@@ -786,7 +744,7 @@ public abstract class BookSimulationPageFlip_impl {
     
     
     public void controllTouchPointWhenUp() {
-        mTouch=getTouchPoint();
+        mTouch=impl.getTouchPoint();
         if (mTouch.y >= mHeight) {
             mTouch.y = mHeight - dI;
         }
@@ -797,18 +755,18 @@ public abstract class BookSimulationPageFlip_impl {
         if (mTouch.y >= mHeight) {
             t = mHeight - dI;
         }
-        if (getDirection() == DIRECTION_RIGHT
-                || (getDirection() == DIRECTION_LEFT
+        if (impl.getDirection() == DIRECTION_RIGHT
+                || (impl.getDirection() == DIRECTION_LEFT
                         && mTouch.y > mHeight * 0.38 && mTouch.y < mHeight * 0.62)) {
             t = mHeight - dI;
         }
         calcCornerXY(t);
-        if (getDirection() == DIRECTION_RIGHT
-                || (getDirection() == DIRECTION_LEFT
+        if (impl.getDirection() == DIRECTION_RIGHT
+                || (impl.getDirection() == DIRECTION_LEFT
                         && mTouch.y > mHeight * 0.38 && mTouch.y < mHeight * 0.62)) {
-            if (getDirection() == DIRECTION_RIGHT) {
+            if (impl.getDirection() == DIRECTION_RIGHT) {
                 mTouch.x = 0;
-            } else if (getDirection() == DIRECTION_LEFT
+            } else if (impl.getDirection() == DIRECTION_LEFT
                     && mTouch.y > mHeight * 0.38 && mTouch.y < mHeight * 0.62) {
                 mTouch.x = mWidth;
             }
@@ -831,7 +789,7 @@ public abstract class BookSimulationPageFlip_impl {
      * 记录仿真翻页动画结束线程
      * */
     private void recordModeBookStartAnimation() {
-        mFlingRunnable.startAnimationModeBookByTouch();
+//        mFlingRunnable.startAnimationModeBookByTouch();
     }
 
     private class FlingRunnable implements Runnable {
@@ -859,7 +817,7 @@ public abstract class BookSimulationPageFlip_impl {
          */
         private void endFling(boolean scrollIntoSlots) {
             mScroller.forceFinished(true);
-            onAnimationEnd();
+            impl.onAnimationEnd();
         }
 
         // *****************仿真翻页用到的***********************
@@ -936,7 +894,7 @@ public abstract class BookSimulationPageFlip_impl {
                 int dx; // dx 水平方向滑动的距离，负值会使滚动向左滚动
                 int dy; // dy 垂直方向滑动的距离，负值会使滚动向上滚动
 
-                if (getDirection() == DIRECTION_LEFT && mTouch.y != mHeight - dI) {
+                if (impl.getDirection() == DIRECTION_LEFT && mTouch.y != mHeight - dI) {
                     PointF p = getCross(mBezierControl1, mBezierEnd1, mBezierControl2, mBezierEnd2);
                     if (p.x >= 0 && p.x <= mWidth && p.y >= 0 && p.y <= mHeight - dI
                             && mBezierControl1.x >= 0 && mBezierControl1.y >= 0
@@ -949,7 +907,7 @@ public abstract class BookSimulationPageFlip_impl {
                 }
 
                 if (isGoBsck ) { // 如果是往回返执行该动画(即翻页失败)
-                    if (getDirection() == DIRECTION_LEFT) {
+                    if (impl.getDirection() == DIRECTION_LEFT) {
                         dx = (int) (-(mTouch.x + mWidth));
                         dy = (int) (mCornerY - mTouch.y);
 //                        mScrollDirection = DIRECTION_LEFT;
@@ -959,7 +917,7 @@ public abstract class BookSimulationPageFlip_impl {
 //                        mScrollDirection = DIRECTION_RIGHT;
                     }
                 } else {
-                    if (getDirection() == DIRECTION_LEFT) {
+                    if (impl.getDirection() == DIRECTION_LEFT) {
                         dx = -(int) (mWidth + mTouch.x);
                     } else {
                         dx = (int) (mWidth - mTouch.x + mWidth);
@@ -977,7 +935,7 @@ public abstract class BookSimulationPageFlip_impl {
                 } else {
                     amationTime = 600;
                 }
-                mScroller.startScroll((int) mTouch.x, (int) mTouch.y, dx, dy, amationTime); // 时间
+//                mScroller.startScroll((int) mTouch.x, (int) mTouch.y, dx, dy, amationTime); // 时间
     }
     
     /**
