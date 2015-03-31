@@ -169,6 +169,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         gl.glRotatef(-angle, 0, 1, 0.5f-y/getHeight());
         gl.glTranslatef(1, 0, 0);
         gl.glRotatef(-angle, 0, -1, y/getHeight()-0.5f);
+        gl.glRotatef(60*(0.5f-y/getHeight()), 1, 0, 0);
         gl.glScalef(.5f, .5f, .5f);
         square.draw(gl);
         gl.glPopMatrix();
@@ -182,6 +183,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         gl.glRotatef(120 - angle, 0, 1, 0.5f-y/getHeight());
         gl.glTranslatef(1, 0, 0);
         gl.glRotatef(120 - angle, 0, -1, y/getHeight()-0.5f);
+        gl.glRotatef(60*(0.5f-y/getHeight()), 1, 0, 0);
         gl.glScalef(.5f, .5f, .5f);
         square1.draw(gl);
         gl.glPopMatrix();
@@ -191,6 +193,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         gl.glRotatef(240 - angle, 0, 1, 0.5f-y/getHeight());
         gl.glTranslatef(1, 0, 0);
         gl.glRotatef(240 - angle, 0, -1, y/getHeight()-0.5f);
+        gl.glRotatef(60*(0.5f-y/getHeight()), 1, 0, 0);
         gl.glScalef(.5f, .5f, .5f);
         square2.draw(gl);
         gl.glPopMatrix();
