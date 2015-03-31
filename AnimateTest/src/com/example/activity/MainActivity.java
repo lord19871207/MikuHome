@@ -3,6 +3,7 @@ package com.example.activity;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -50,7 +51,7 @@ public class MainActivity extends FragmentActivity {
     private FragmentManager manager;
     private DrawerLayout drawLayout;
     private ImageView runImage;
-    TranslateAnimation left, right, up, down;
+    private TranslateAnimation left, right, up, down;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class MainActivity extends FragmentActivity {
         manager = getSupportFragmentManager();
         intView();
         intData();
+        setListener();
         startAnimation();
         Toast.makeText(this, "侧滑或点击菜单可以显示更多哦~", Toast.LENGTH_SHORT).show();
         drawerListView.setAdapter(new ArrayAdapter<String>(this, R.layout.item_filename, drawerList));
@@ -230,11 +232,6 @@ public class MainActivity extends FragmentActivity {
         super.onPostCreate(savedInstanceState);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see android.support.v4.app.FragmentActivity#onKeyDown(int, android.view.KeyEvent)
-     */
     @SuppressLint("NewApi")
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -245,13 +242,54 @@ public class MainActivity extends FragmentActivity {
             } else {
                 drawLayout.openDrawer(GravityCompat.START);
             }
-
             break;
-
         default:
             break;
         }
         return super.onKeyDown(keyCode, event);
     }
 
+    
+    private void setListener(){
+        findViewById(R.id.buttonDragH).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
+                intent.putExtra("horizontal", true);
+                intent.putExtra("vertical", true);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.buttonDragV).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
+                intent.putExtra("vertical", true);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.buttonDragEdge).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
+                intent.putExtra("edge", true);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.buttonDragCapture).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
+                intent.putExtra("capture", true);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.buttonYoutube).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 }

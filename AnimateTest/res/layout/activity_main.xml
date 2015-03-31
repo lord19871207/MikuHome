@@ -9,12 +9,49 @@
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-      <ImageView
+
+        <ImageView
             android:id="@+id/run_image"
             android:layout_width="1000dip"
             android:layout_height="666dip"
-            android:scaleType="matrix"
-            android:background="@drawable/bu4" />  
+            android:background="@drawable/bu4"
+            android:scaleType="matrix" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/buttonDragH"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Horizontal drag" />
+
+            <Button
+                android:id="@+id/buttonDragV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vertical drag" />
+
+            <Button
+                android:id="@+id/buttonDragEdge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edge drag" />
+
+            <Button
+                android:id="@+id/buttonDragCapture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Capture drag" />
+
+            <Button
+                android:id="@+id/buttonYoutube"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Youtube layout" />
+        </LinearLayout>
     </FrameLayout>
 
     <com.example.viewport.PullToZoomListView
@@ -22,9 +59,9 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        headbackground="@drawable/ac"
         android:background="@android:color/transparent"
         android:choiceMode="singleChoice"
-        headbackground="@drawable/ac"
         android:divider="@android:color/background_light"
         android:dividerHeight="2dp" />
 

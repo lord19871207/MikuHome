@@ -23,8 +23,7 @@ import com.example.render.OpenGLRender;
 import com.example.render.OpenGLRender.IOpenGLDemo;
 
 /**
- * 类描述：
- * 
+ * 类描述：三张图片绕Y轴旋转的3D 自定义控件
  * @Package com.example.viewport
  * @ClassName: OpenGLBookShowView
  * @author 尤洋

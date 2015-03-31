@@ -26,6 +26,10 @@
         <activity
             android:name="com.example.activity.MainActivity" >
         </activity>
+        
+        <activity
+            android:name="com.example.activity.DragLayoutActivity" >
+        </activity>
     </application>
 
 </manifest>
