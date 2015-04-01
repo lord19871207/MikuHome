@@ -47,11 +47,16 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
 
     public OpenGLBookShowView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init_model();
         setZOrderOnTop(true);//将view放到顶端
         setEGLConfigChooser(8,8,8,8,16,0);
         getHolder().setFormat(PixelFormat.TRANSLUCENT);//设置透明
-        setRenderer(new OpenGLRender(this));
+        if(attrs.getAttributeResourceValue(null, "modeltype", 0)!=0){
+            init_model(1);
+        }else{
+            init_model(0);
+        }
+        
+        
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); //
     }
 
@@ -62,20 +67,28 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
      * @return void
      * @date 2015-3-30 上午3:56:34
      */
-    private void init_model() {
+    private void init_model(int type) {
         angle = 90;
-        square = new Square();
-        square1 = new Square();
-        square2 = new Square();
         Bitmap bitmap = Utils.decodeSampledBitmapFromResource
                 (getResources(), R.drawable.bu1, 384, 512);
         Bitmap bitmap1 = Utils.decodeSampledBitmapFromResource
                 (getResources(), R.drawable.bu2, 384, 512);
         Bitmap bitmap2 = Utils.decodeSampledBitmapFromResource
                 (getResources(), R.drawable.qian, 384, 512);
-        square.loadBitmap(bitmap);
-        square1.loadBitmap(bitmap1);
-        square2.loadBitmap(bitmap2);
+        
+        if(type==0){
+            square = new Square();
+            square1 = new Square();
+            square2 = new Square();
+            square.loadBitmap(bitmap);
+            square1.loadBitmap(bitmap1);
+            square2.loadBitmap(bitmap2);
+            setRenderer(new OpenGLRender(this));
+        }else if(type==1){
+            
+        }
+        
+        
     }
 
     @Override

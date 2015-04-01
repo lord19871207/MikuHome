@@ -42,7 +42,8 @@ public class SquareFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        view = new OpenGLBookShowView(getActivity());
+//        view = new OpenGLBookShowView(getActivity());
+        view=(OpenGLBookShowView) inflater.inflate(R.layout.fragment_opengl_square, container, false);
         view.setBackgroundResource(R.drawable.bu3);
         return view;
     }
