@@ -20,12 +20,6 @@ import android.opengl.GLUtils;
  */
 public class Mesh {
 
-    /**
-     * 构造方法描述：
-     * 
-     * @Title: Mesh
-     * @date 2015-3-14 下午7:06:59
-     */
     public Mesh() {
     }
 

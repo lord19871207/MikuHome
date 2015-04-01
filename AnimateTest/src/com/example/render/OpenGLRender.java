@@ -14,10 +14,13 @@ public class OpenGLRender implements Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-      //设置背景色
+      //设置清屏时背景的颜色，R，G，B，A
         gl.glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
         //使绘制的图形光滑
         gl.glShadeModel(GL10.GL_SMOOTH);
+        
+        gl.glEnable(GL10.GL_LIGHTING); //启用光照
+        gl.glEnable(GL10.GL_LIGHT0);  //开启光源0
         gl.glClearDepthf(1.0f);
         gl.glEnable(GL10.GL_DEPTH_TEST);
         gl.glDepthFunc(GL10.GL_LEQUAL);

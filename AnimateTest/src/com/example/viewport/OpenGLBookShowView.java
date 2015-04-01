@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 
 import com.example.animatetest.R;
 import com.example.common.util.Utils;
+import com.example.graphmodel.Cube;
 import com.example.graphmodel.Square;
 import com.example.render.OpenGLRender;
 import com.example.render.OpenGLRender.IOpenGLDemo;
@@ -40,6 +41,9 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
     private boolean isplus;
     private float mPreviousX;
     private float y;
+    private Cube cube;
+    private Cube cube1;
+    private Cube cube2;
     
     public OpenGLBookShowView(Context context) {
         this(context, null);
@@ -53,7 +57,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         if(attrs.getAttributeResourceValue(null, "modeltype", 0)!=0){
             init_model(1);
         }else{
-            init_model(0);
+            init_model(1);
         }
         
         
@@ -85,7 +89,13 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
             square2.loadBitmap(bitmap2);
             setRenderer(new OpenGLRender(this));
         }else if(type==1){
-            
+            cube = new Cube();
+            cube1 = new Cube();
+            cube2 = new Cube();
+            cube.loadBitmap(bitmap);
+            cube1.loadBitmap(bitmap1);
+            cube2.loadBitmap(bitmap2);
+            setRenderer(new OpenGLRender(this));
         }
         
         
@@ -173,7 +183,9 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         // 测试材质效果
         // drawMateril(gl);
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+        gl.glMatrixMode(GL10.GL_MODELVIEW);   //切换至模型观察矩阵
         gl.glLoadIdentity();
+        GLU.gluLookAt(gl, 0, 0, 3, 0, 0, 0, 0, 1, 0);//设置视点和模型中心位置
         gl.glTranslatef(0, 0, -6);
         
       //第一张图片
@@ -183,8 +195,8 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         gl.glTranslatef(1, 0, 0);
         gl.glRotatef(-angle, 0, -1, y/getHeight()-0.5f);
         gl.glRotatef(60*(0.5f-y/getHeight()), 1, 0, 0);
-        gl.glScalef(.5f, .5f, .5f);
-        square.draw(gl);
+//        gl.glScalef(.5f, .5f, .5f);
+        cube.draw(gl);
         gl.glPopMatrix();
         /*
          * 要理解（先旋转再平移） 和 （先平移再旋转） 的区别 角度递增的情况下 
@@ -197,8 +209,8 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         gl.glTranslatef(1, 0, 0);
         gl.glRotatef(120 - angle, 0, -1, y/getHeight()-0.5f);
         gl.glRotatef(60*(0.5f-y/getHeight()), 1, 0, 0);
-        gl.glScalef(.5f, .5f, .5f);
-        square1.draw(gl);
+//        gl.glScalef(.5f, .5f, .5f);
+        cube1.draw(gl);
         gl.glPopMatrix();
 
         //第三张图片
@@ -207,8 +219,8 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         gl.glTranslatef(1, 0, 0);
         gl.glRotatef(240 - angle, 0, -1, y/getHeight()-0.5f);
         gl.glRotatef(60*(0.5f-y/getHeight()), 1, 0, 0);
-        gl.glScalef(.5f, .5f, .5f);
-        square2.draw(gl);
+//        gl.glScalef(.5f, .5f, .5f);
+        cube2.draw(gl);
         gl.glPopMatrix();
     }
 
