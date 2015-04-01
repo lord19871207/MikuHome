@@ -72,11 +72,11 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
     private void init_model(int type) {
         angle = 90;
         Bitmap bitmap = Utils.decodeSampledBitmapFromResource
-                (getResources(), R.drawable.bu1, 384, 512);
+                (getResources(), R.drawable.bu1, 512, 512);
         Bitmap bitmap1 = Utils.decodeSampledBitmapFromResource
-                (getResources(), R.drawable.bu2, 384, 512);
+                (getResources(), R.drawable.bu2, 512, 512);
         Bitmap bitmap2 = Utils.decodeSampledBitmapFromResource
-                (getResources(), R.drawable.qian, 384, 512);
+                (getResources(), R.drawable.qian, 512, 512);
         
         if(type==0){
             square = new Square();
