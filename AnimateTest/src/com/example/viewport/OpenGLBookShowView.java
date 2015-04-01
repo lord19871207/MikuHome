@@ -59,8 +59,6 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         }else{
             init_model(1);
         }
-        
-        
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); //
     }
 
@@ -118,10 +116,10 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
             float dx = x - mPreviousX;
             if (dx > 0) {
                 isLeft = true;
-                angle = angle - 3;
+                angle = angle - 8;
             } else {
                 isLeft = false;
-                angle = angle + 3;
+                angle = angle + 8;
             }
             
             break;
@@ -156,7 +154,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
     }
 
     /**
-     * 方法描述：获取三个数字钟的最小值
+     * 方法描述：获取三个数字中的最小值
      * 
      * @author 尤洋
      * @Title: getMax
@@ -186,7 +184,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         gl.glMatrixMode(GL10.GL_MODELVIEW);   //切换至模型观察矩阵
         gl.glLoadIdentity();
         GLU.gluLookAt(gl, 0, 0, 3, 0, 0, 0, 0, 1, 0);//设置视点和模型中心位置
-        gl.glTranslatef(0, 0, -6);
+        gl.glTranslatef(0, 0, -3);
         
       //第一张图片
         gl.glPushMatrix();
@@ -195,6 +193,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         gl.glTranslatef(1, 0, 0);
         gl.glRotatef(-angle, 0, -1, y/getHeight()-0.5f);
         gl.glRotatef(60*(0.5f-y/getHeight()), 1, 0, 0);
+//        gl.glRotatef(20, 0, 1, 0);
 //        gl.glScalef(.5f, .5f, .5f);
         cube.draw(gl);
         gl.glPopMatrix();
@@ -209,6 +208,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         gl.glTranslatef(1, 0, 0);
         gl.glRotatef(120 - angle, 0, -1, y/getHeight()-0.5f);
         gl.glRotatef(60*(0.5f-y/getHeight()), 1, 0, 0);
+//        gl.glRotatef(20, 0, 1, 0);
 //        gl.glScalef(.5f, .5f, .5f);
         cube1.draw(gl);
         gl.glPopMatrix();
@@ -219,6 +219,7 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         gl.glTranslatef(1, 0, 0);
         gl.glRotatef(240 - angle, 0, -1, y/getHeight()-0.5f);
         gl.glRotatef(60*(0.5f-y/getHeight()), 1, 0, 0);
+//        gl.glRotatef(20, 0, 1, 0);
 //        gl.glScalef(.5f, .5f, .5f);
         cube2.draw(gl);
         gl.glPopMatrix();
