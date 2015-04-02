@@ -1,6 +1,5 @@
-package com.example.interfaces.impl;
+package com.example.controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -29,7 +28,7 @@ import com.example.interfaces.BookSimulationPageFlip;
  * @mail youyang@ucweb.com
  * @date 2015-3-31 上午10:11:17
  */
-public class BookSimulationPageFlip_impl {
+public class BookSimulationControl {
     private static final int DIRECTION_RIGHT = 1;// 从右往左滑动
 
     private static final int DIRECTION_LEFT = 0;// 从左往右滑动
@@ -122,13 +121,14 @@ public class BookSimulationPageFlip_impl {
 
     // ----------------仿真翻页属性------------------------
 
-    public BookSimulationPageFlip_impl(Context context) {
+    public BookSimulationControl(Context context,View view) {
         super();
         this.context = context;
         mScreenWidth = getScreenWidth(context);
         mScreenHeight = getScreenHeight(context);
         mWidth = mScreenWidth;
         mHeight = mScreenHeight;
+        this.view=view;
         paint = new Paint();
         paint.setColor(Color.BLUE);
 
@@ -292,7 +292,7 @@ public class BookSimulationPageFlip_impl {
         mBezierStart2.x = mCornerX;
         mBezierStart2.y = mBezierControl2.y - (mCornerY - mBezierControl2.y) / 2;
 
-        // 拖拽点与页脚的距离
+        // 拖拽点与页脚(右下角顶点)的距离
         mTouchToCornerDis = (float) Math.hypot((mTouch.x - mCornerX), (mTouch.y - mCornerY));
 
         // 计算贝塞尔曲线结束点
@@ -365,7 +365,6 @@ public class BookSimulationPageFlip_impl {
                 return;
             }
         }
-
         canvas.save();
         // 构造区域path
         mPath0.reset();
@@ -701,7 +700,7 @@ public class BookSimulationPageFlip_impl {
     // ***********************************************************仿真翻页处理
 
     public void controllTouchPointWhenMove() {
-
+        mTouch = impl.getTouchPoint();
         float t = mTouch.y;
         if (mTouch.y >= mHeight) {
             t = mHeight - dI;
@@ -733,6 +732,16 @@ public class BookSimulationPageFlip_impl {
             mTouch.y = mHeight - dI;
         }
         // 仿真翻页拖动事件处理****************************
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
     public void controllTouchPointWhenUp() {
@@ -949,26 +958,18 @@ public class BookSimulationPageFlip_impl {
     }
 
     public void nextPage(Canvas canvas) {
-        // *****************************
-//        mTouch.x = mWidth * 3 / 4;
-//        mTouch.y = mHeight * 5 / 8;
-//        calcCornerXY(mTouch.y);
-//        recordModeBookStartAnimation();
-//        startScollAnimation(false);
-//        // 重新给mTouch.x和mTouch.y赋值
-//        mTouch.x = mCornerX;
-//        mTouch.y = mCornerY;
-//        if (mTouch.y >= mHeight) {
-//            mTouch.y = mHeight - dI;
-//        } else if (mTouch.y <= 0) {
-//            mTouch.y += dI;
-//        }
-        // *************************************
         mCalculatePoints();
         drawCurrentPageArea(canvas, false);
         drawNextPageAreaAndShadow(canvas, true);
         drawCurrentPageShadow(canvas);
         drawCurrentBackArea(canvas, false);
     }
+    
+    
+    
+    
+    
+    
+    
 
 }

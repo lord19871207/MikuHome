@@ -12,8 +12,8 @@ import android.view.View;
 
 import com.example.animatetest.R;
 import com.example.common.util.Utils;
+import com.example.controller.BookSimulationControl;
 import com.example.interfaces.BookSimulationPageFlip;
-import com.example.interfaces.impl.BookSimulationPageFlip_impl;
 
 /**
  * 类描述：
@@ -27,10 +27,18 @@ import com.example.interfaces.impl.BookSimulationPageFlip_impl;
 public class SimulateView extends View implements BookSimulationPageFlip{
     private static final  String TAG="SimulateView";
     private Activity context;
-    private BookSimulationPageFlip_impl flip;
+    private BookSimulationControl flip;
     private PointF pointf;
     private Bitmap bitmap;
     private Bitmap bitmap1;
+    /** touch事件down时的x轴坐标 */
+    private float mTouchDownX;
+    /** touch事件down时的y轴坐标 */
+    private float mTouchDownY;
+    /** 一次完整touch事件中上一次的x轴坐标 */
+    private float mLastTouchX;
+    /** 一次完整touch事件中上一次的y轴坐标 */
+    private float mLastTouchY;
     
     
     public SimulateView(Context context) {
@@ -41,10 +49,10 @@ public class SimulateView extends View implements BookSimulationPageFlip{
         super(context, attrs);
         pointf=new PointF();
         bitmap = Utils.decodeSampledBitmapFromResource
-                (getResources(), R.drawable.bu1, 384, 512);
+                (getResources(), R.drawable.bu1, 512, 720);
         bitmap1 = Utils.decodeSampledBitmapFromResource
-                (getResources(), R.drawable.bu2, 384, 512);
-        flip=new BookSimulationPageFlip_impl(context) ;
+                (getResources(), R.drawable.bu2, 512, 720);
+        flip=new BookSimulationControl(context,this) ;
         flip.setNeedImpl(this);
     }
 
@@ -52,6 +60,8 @@ public class SimulateView extends View implements BookSimulationPageFlip{
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
+            mTouchDownX=event.getX();
+            mTouchDownY=event.getY();
             pointf.set(event.getX(),event.getY());
             break;
         case MotionEvent.ACTION_MOVE:
@@ -62,6 +72,8 @@ public class SimulateView extends View implements BookSimulationPageFlip{
             break;
         case MotionEvent.ACTION_UP:
         case MotionEvent.ACTION_CANCEL:
+            mLastTouchX=event.getX();
+            mLastTouchY=event.getY();
             Log.i(TAG, "MotionEvent.ACTION_UP");
             pointf.set(event.getX(),event.getY());
             flip.controllTouchPointWhenUp();

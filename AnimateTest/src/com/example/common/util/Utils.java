@@ -76,6 +76,7 @@ public class Utils {
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
         return BitmapFactory.decodeResource(res, resId, options);
     }
 
