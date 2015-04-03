@@ -2,6 +2,7 @@ package com.example.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Window;
 
 import com.example.animatetest.R;
 
@@ -31,6 +32,8 @@ public class BookcontentActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_PROGRESS); // 去标题栏
+        setContentView(R.layout.activity_splash);
         setContentView(R.layout.activity_bookcontent);
     }
 

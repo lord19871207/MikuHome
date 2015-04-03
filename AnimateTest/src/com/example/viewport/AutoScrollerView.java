@@ -51,7 +51,10 @@ public class AutoScrollerView extends View implements BookSimulationPageFlip{
      */
     @Override
     protected void onDraw(Canvas canvas) {
-        defaultPagePicture.draw(canvas);
+//        defaultPagePicture.draw(canvas);
+        controll.draw1(canvas);
+        controll.draw2(canvas);
+        controll.draw3(canvas);
     }
 
     /* (non-Javadoc)

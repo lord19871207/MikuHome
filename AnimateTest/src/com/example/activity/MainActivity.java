@@ -46,6 +46,7 @@ public class MainActivity extends FragmentActivity {
     protected static final int BITMAPMESHFRAGMENT_DEMO4 = 0x0004; // 滤镜效果
     protected static final int BITMAPMESHFRAGMENT_DEMO5 = 0x0005; // 三张图片切换
     protected static final int ROTATE_TRANSFLATE_DEMO = 0x0006; // opengl实现的三张图片切换
+    protected static final int AUTO_SCROLL = 0x0007;//上下自动滚屏
     private ArrayList<String> drawerList;
     private PullToZoomListView drawerListView;
     private FragmentManager manager;
@@ -94,6 +95,10 @@ public class MainActivity extends FragmentActivity {
                     break;
                 case BITMAPMESHFRAGMENT_DEMO5: // 三张图片切换
                     switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.THIRDDIMENSIONVIEW));
+                    break;
+                case AUTO_SCROLL: // 自动滚屏
+                    Intent intent =new Intent(MainActivity.this,BookcontentActivity.class);
+                    startActivity(intent);
                     break;
                 default:
                     break;
@@ -219,7 +224,7 @@ public class MainActivity extends FragmentActivity {
         drawerList.add("颜色过滤器效果");
         drawerList.add("三张图片来回切换");
         drawerList.add("opengl平移和旋转");
-        drawerList.add("Blur高斯模糊效果");
+        drawerList.add("自动滚屏");
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
