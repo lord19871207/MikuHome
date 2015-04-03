@@ -30,6 +30,7 @@ import com.example.viewport.AutoScrollerView;
 public class AutoScrollerController {
     private Bitmap bitmap_0;  // old
     private Bitmap bitmap_1;  // new
+    private Bitmap bitmap_2;  //分割线
     public static float density;
     public AutoScrollerView mView;
     public static final int LEFTSPACE = 10;
@@ -63,6 +64,7 @@ public class AutoScrollerController {
         this.impl = impl;
         bitmap_0 = impl.loadBitmap(0);
         bitmap_1 = impl.loadBitmap(1);
+        bitmap_2=impl.loadBitmap(2);
         paint.setColor(Color.BLUE);
         
     }
@@ -166,7 +168,8 @@ public class AutoScrollerController {
         }else{
             bottom=autoScrollOffset-1;
         }
-        canvas.drawRect(0, top, width, bottom, paint);
+//        canvas.drawRect(0, top, width, bottom, paint);
+        canvas.drawBitmap(bitmap_2, 0, top, paint);
     }
     
     
@@ -228,6 +231,14 @@ public class AutoScrollerController {
             mView.getDefaultPagePicture().draw(canvas2);
             break;
         }
+    }
+    
+    public int getAutoScrollOffset (){
+        return autoScrollOffset;
+    }
+    
+    public void setAutoScrollOffset(int scroll){
+        this.autoScrollOffset=scroll;
     }
 
 }

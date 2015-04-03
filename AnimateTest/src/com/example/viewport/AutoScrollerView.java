@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.graphics.PointF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.animatetest.R;
@@ -15,49 +16,51 @@ import com.example.interfaces.BookSimulationPageFlip;
 
 /**
  * 类描述：
+ * 
  * @Package com.example.viewport
  * @ClassName: AutoScrollerView
  * @author 尤洋
  * @mail youyang@ucweb.com
  * @date 2015-4-2 下午11:06:10
  */
-public class AutoScrollerView extends View implements BookSimulationPageFlip{
+public class AutoScrollerView extends View implements BookSimulationPageFlip {
     /** 缓存 */
     private Picture defaultPagePicture = new Picture();
     private Bitmap bitmap;
     private Bitmap bitmap1;
+    private Bitmap bitmap2;
     private AutoScrollerController controll;
-    
+
     public AutoScrollerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        controll=new AutoScrollerController(context, this);
-        
+        controll = new AutoScrollerController(context, this);
+
         bitmap = Utils.decodeSampledBitmapFromResource
                 (getResources(), R.drawable.bu1, 512, 720);
         bitmap1 = Utils.decodeSampledBitmapFromResource
                 (getResources(), R.drawable.bu2, 512, 720);
+        bitmap2 = Utils.decodeSampledBitmapFromResource
+                (getResources(), R.drawable.line1, 480, 10);
         controll.setNeedImpl(this);
         controll.startAutoScroll();
     }
-    
+
     /** 获得默认画面的Picture */
     public Picture getDefaultPagePicture() {
         return defaultPagePicture;
     }
 
-    
-    /* (non-Javadoc)
-     * @see android.view.View#onDraw(android.graphics.Canvas)
-     */
     @Override
     protected void onDraw(Canvas canvas) {
-//        defaultPagePicture.draw(canvas);
+        // defaultPagePicture.draw(canvas);
         controll.draw1(canvas);
         controll.draw2(canvas);
         controll.draw3(canvas);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.example.interfaces.BookSimulationPageFlip#getShadowColor()
      */
     @Override
@@ -70,11 +73,14 @@ public class AutoScrollerView extends View implements BookSimulationPageFlip{
     public Bitmap loadBitmap(int type) {
         switch (type) {
         case 0:
-            
+
             return bitmap;
         case 1:
-            
+
             return bitmap1;
+        case 2:
+
+            return bitmap2;
 
         default:
             break;
@@ -88,7 +94,9 @@ public class AutoScrollerView extends View implements BookSimulationPageFlip{
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.example.interfaces.BookSimulationPageFlip#getCurrentSimulationTheme()
      */
     @Override
@@ -97,7 +105,9 @@ public class AutoScrollerView extends View implements BookSimulationPageFlip{
         return 0;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.example.interfaces.BookSimulationPageFlip#getDirection()
      */
     @Override
@@ -105,9 +115,18 @@ public class AutoScrollerView extends View implements BookSimulationPageFlip{
         // TODO Auto-generated method stub
         return 0;
     }
-    
+
     public void onAnimationEnd() {
     }
     
     
+    /* (non-Javadoc)
+     * @see android.view.View#onTouchEvent(android.view.MotionEvent)
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+            controll.setAutoScrollOffset((int)event.getY());
+        return true;
+    }
+
 }
