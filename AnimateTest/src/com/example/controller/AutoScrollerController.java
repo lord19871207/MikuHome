@@ -3,10 +3,12 @@ package com.example.controller;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.R.color;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.drawable.GradientDrawable;
@@ -60,6 +62,8 @@ public class AutoScrollerController {
         this.impl = impl;
         bitmap_0 = impl.loadBitmap(0);
         bitmap_1 = impl.loadBitmap(1);
+        paint.setColor(Color.BLUE);
+        
     }
     
     
@@ -78,12 +82,12 @@ public class AutoScrollerController {
                 }
             };
         }
-        if (cachePicture == null) {
-            cachePicture = new Picture();
-        }
-        preparePicture(0, 0);
-        preparePicture(6, 0);
-        autoScrollOffset = 0;
+//        if (cachePicture == null) {
+//            cachePicture = new Picture();
+//        }
+//        preparePicture(0, 0);
+//        preparePicture(6, 0);
+//        autoScrollOffset = 0;
         autoScrollTask = new TimerTask() {
             @Override
             public void run() {
@@ -112,17 +116,13 @@ public class AutoScrollerController {
             picture = mView.getDefaultPagePicture();
             picture.endRecording();
             Canvas canvas = picture.beginRecording(width, height);
-            // 当自动滚屏时
+            // 当自动滚屏时 上半部分
                 canvas.save();
                 canvas.clipRect(0, 0, width, autoScrollOffset);
-                
                 canvas.drawBitmap(bitmap_0, 0, 0, paint);
-                
-                
-                
-            // 当前页有本章节内容时，画信息栏
-            // 当自动滚屏时
                 canvas.restore();
+                
+              //下半部分  
                 canvas.save();
                 canvas.clipRect(0, autoScrollOffset, width, height);
                 if (autoScrollDrawable == null) {
@@ -143,7 +143,7 @@ public class AutoScrollerController {
                         width - RIGHTSPACE
                                 + Math.round(2 * density),
                         autoScrollOffset, paint);
-                canvas.drawPicture(cachePicture);
+//                canvas.drawPicture(cachePicture);
                 canvas.restore();
                 mView.postInvalidate();
             break;
