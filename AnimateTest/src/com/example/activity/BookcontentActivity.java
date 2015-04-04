@@ -1,7 +1,7 @@
 package com.example.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Window;
 
 import com.example.animatetest.R;
@@ -14,20 +14,11 @@ import com.example.animatetest.R;
  * @mail youyang@ucweb.com
  * @date 2015-3-31 下午3:06:52
  */
-public class BookcontentActivity extends ActionBarActivity {
+public class BookcontentActivity extends Activity {
 
-    /**
-     * 构造方法描述：
-     * @Title: BookcontentActivity
-     * @date 2015-3-31 下午3:06:53
-     */
     public BookcontentActivity() {
-        // TODO Auto-generated constructor stub
     }
     
-    /* (non-Javadoc)
-     * @see android.app.Activity#onCreate(android.os.Bundle)
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
