@@ -1,10 +1,10 @@
 package com.example.activity;
 
+import com.example.animatetest.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
-
-import com.example.animatetest.R;
 
 /**
  * 类描述：
@@ -33,7 +33,6 @@ public class BookcontentActivity extends Activity {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_PROGRESS); // 去标题栏
-        setContentView(R.layout.activity_splash);
         setContentView(R.layout.activity_bookcontent);
     }
 

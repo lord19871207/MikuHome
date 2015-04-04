@@ -31,9 +31,12 @@ public class AutoScrollerController {
     private Bitmap bitmap_0;  // old
     private Bitmap bitmap_1;  // new
     private Bitmap bitmap_2;  //分割线
+    private Bitmap bitmap_3;  //tupian分割线
     public AutoScrollerView mView;
     public static final int LEFTSPACE = 10;
     private static final int RIGHTSPACE = 10;
+    private static final int FRONT = 0X000;
+    private static final int BACK = 0X001;
     private BookSimulationPageFlip impl;
     public Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     public AutoScrollerController(Context context2,AutoScrollerView view) {
@@ -59,26 +62,45 @@ public class AutoScrollerController {
         bitmap_0 = impl.loadBitmap(0);
         bitmap_1 = impl.loadBitmap(1);
         bitmap_2=impl.loadBitmap(2);
+        bitmap_3=impl.loadBitmap(3);
         paint.setColor(Color.BLUE);
         
     }
     
     private int index=0;
-    public void startAutoScroll() {
+    public void startAutoScroll(int type) {
         autoScrollTimer = new Timer();
         if (autoScrollRunnable == null) {
-            autoScrollRunnable = new Runnable() {
+            if(type==FRONT){
+                autoScrollRunnable = new Runnable() {
 
-                @Override
-                public void run() {
-                    autoScrollOffset=autoScrollOffset+4;
-                    if (autoScrollOffset > height) {
-                        index++;
-                        autoScrollOffset = 0;
+                    @Override
+                    public void run() {
+                        autoScrollOffset=autoScrollOffset+4;
+                        if (autoScrollOffset > height) {
+                            index++;
+                            autoScrollOffset = 0;
+                        }
                     }
-                }
-            };
+                };
+            }else if(type==BACK){
+                autoScrollOffset=height;
+                autoScrollRunnable = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        autoScrollOffset=autoScrollOffset-4;
+                        if (autoScrollOffset <0) {
+                            index++;
+                            autoScrollOffset = height;
+                        }
+                    }
+                };
+            }
+            
         }
+        
+        
         autoScrollTask = new TimerTask() {
             @Override
             public void run() {
@@ -91,7 +113,7 @@ public class AutoScrollerController {
     /**
      * 停止滚屏 isNormalStop = true :正常停止 isNormalStop = false:滚屏到结尾停止
      */
-    private void stopAutoScroll(boolean isNormalStop) {
+    public void stopAutoScroll() {
             autoScrollTask.cancel();
             autoScrollTimer.cancel();
             ((Activity)context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -122,7 +144,7 @@ public class AutoScrollerController {
     }
     
     
-    public void draw3(Canvas canvas){
+    public void draw3(Canvas canvas,int type){
         int top,bottom;
         if(autoScrollOffset>2){
             top=autoScrollOffset-3;
@@ -136,7 +158,11 @@ public class AutoScrollerController {
             bottom=autoScrollOffset-1;
         }
 //        canvas.drawRect(0, top, width, bottom, paint);
-        canvas.drawBitmap(bitmap_2, 0, top, paint);
+        if(type==FRONT){
+            canvas.drawBitmap(bitmap_2, 0, top, paint);
+        }else if(type==BACK){
+            canvas.drawBitmap(bitmap_3, 0, bottom, paint);
+        }
     }
     
     public int getAutoScrollOffset (){

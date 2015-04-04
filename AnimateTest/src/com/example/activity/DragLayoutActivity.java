@@ -2,6 +2,7 @@ package com.example.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+
 import com.example.animatetest.R;
 import com.example.viewport.DragInnerLayout;
 

@@ -16,7 +16,7 @@ import com.example.controller.BookSimulationControl;
 import com.example.interfaces.BookSimulationPageFlip;
 
 /**
- * 类描述：
+ * 类描述：仿真翻页的控件
  * 
  * @Package com.example.viewport
  * @ClassName: SimulateView
@@ -94,12 +94,9 @@ public class SimulateView extends View implements BookSimulationPageFlip{
         public Bitmap loadBitmap(int type) {
             switch (type) {
             case 0:
-                
                 return bitmap;
             case 1:
-                
                 return bitmap1;
-
             default:
                 break;
             }
@@ -125,32 +122,9 @@ public class SimulateView extends View implements BookSimulationPageFlip{
         
         @Override
         public int getCurrentSimulationTheme() {
-            // TODO Auto-generated method stub
             return 1;
         }
     
-//        public void computeScroll() {
-//            if (pageTurnMode == PAGETURN_MODE_SMOOTH) {
-//                return;
-//            }
-//            if (mModeScroller.computeScrollOffset()) {
-//                mTouch.x = mModeScroller.getCurrX();
-//                mTouch.y = mModeScroller.getCurrY();
-//                if (mTouch.y >= mHeight - 1) {
-//                    mTouch.y = mHeight - dI;
-//                } else if (mTouch.y < 1) {
-//                    mTouch.y = 1;
-//                }
-//
-//                mLastTouchY = mModeScroller.getCurrY();
-//                // mLastTouchX = mModeScroller.getCurrX();
-//                postInvalidate();
-//            } 
-//        }
-        
-        /* (non-Javadoc)
-         * @see android.view.View#onDraw(android.graphics.Canvas)
-         */
         @Override
         protected void onDraw(Canvas canvas) {
             flip.nextPage(canvas);

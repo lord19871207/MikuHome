@@ -13,6 +13,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.animatetest.R;
+import com.example.animation.FlipAnimation;
 import com.example.fragment.BitmapMeshFragment;
 import com.example.fragment.PolygonFragment;
 import com.example.fragment.SquareFragment;
@@ -229,7 +231,7 @@ public class MainActivity extends FragmentActivity {
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
-
+        drawerList.add("后续效果逐渐添加");
     }
 
     @Override
