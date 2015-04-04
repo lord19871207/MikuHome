@@ -15,13 +15,11 @@ import com.example.animatetest.R;
  * @date 2015-3-31 下午3:06:52
  */
 public class BookcontentActivity extends Activity {
-
     public BookcontentActivity() {
     }
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_PROGRESS); // 去标题栏
         setContentView(R.layout.activity_bookcontent);

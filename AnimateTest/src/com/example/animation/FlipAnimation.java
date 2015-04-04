@@ -8,18 +8,22 @@ import android.view.animation.Transformation;
  * Created by Konstantin on 22.12.2014.
  */
 public class FlipAnimation extends Animation {
+    public static final int ROTATEY = 0;
+    public static final int ROTATEX = 1;
     private final float mFromDegrees;
     private final float mToDegrees;
     private final float mCenterX;
     private final float mCenterY;
     private Camera mCamera;
+    private int type;
 
     public FlipAnimation(float fromDegrees, float toDegrees,
-                         float centerX, float centerY) {
+                         float centerX, float centerY,int type) {
         mFromDegrees = fromDegrees;
         mToDegrees = toDegrees;
         mCenterX = centerX;
         mCenterY = centerY;
+        this.type=type;
     }
 
     @Override
@@ -41,7 +45,12 @@ public class FlipAnimation extends Animation {
 
         camera.save();
 
-        camera.rotateY(degrees);
+        if(type==ROTATEY){
+            camera.rotateY(degrees);
+        }else if(type==ROTATEX){
+            camera.rotateX(degrees);
+        }
+        
 
         camera.getMatrix(matrix);
         camera.restore();

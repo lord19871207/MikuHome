@@ -85,9 +85,16 @@ public class Utils {
         return BitmapFactory.decodeResource(res, resId, options);
     }
     
-    public static void showAnimation(final View view){
-        FlipAnimation rotation =
-                new FlipAnimation(90, 0, 0.0f, view.getHeight() / 2.0f);
+    public static void showAnimation(final View view,int type){
+        FlipAnimation rotation;
+        if(type==FlipAnimation.ROTATEY){
+             rotation =
+                    new FlipAnimation(90, 0,0.0f, view.getHeight() / 2.0f,type);
+        }else{
+             rotation =
+                    new FlipAnimation(90, 0, view.getWidth() / 2.0f, 0,type);
+        }
+        
         rotation.setDuration(200);
         rotation.setFillAfter(true);
         rotation.setInterpolator(new AccelerateInterpolator());
@@ -115,9 +122,9 @@ public class Utils {
     }
     
     
-    public static void hideAnimation(final View view){
+    public static void hideAnimation(final View view,int type){
         FlipAnimation rotation =
-                new FlipAnimation(0, 90, 0.0f, view.getHeight() / 2.0f);
+                new FlipAnimation(0, 90, 0.0f, view.getHeight() / 2.0f,type);
         rotation.setDuration(200);
         rotation.setFillAfter(true);
         rotation.setInterpolator(new AccelerateInterpolator());

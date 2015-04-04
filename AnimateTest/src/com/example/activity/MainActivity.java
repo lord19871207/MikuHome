@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.animatetest.R;
+import com.example.animation.FlipAnimation;
 import com.example.common.util.Utils;
 import com.example.fragment.BitmapMeshFragment;
 import com.example.fragment.PolygonFragment;
@@ -339,11 +340,15 @@ public class MainActivity extends FragmentActivity {
             new Handler().postDelayed(new Runnable() {
                 public void run() {
                     if(type==0){
-                        Utils.showAnimation(list.get(position)); 
+                        if(position==0){
+                            Utils.showAnimation(list.get(position),FlipAnimation.ROTATEY); 
+                        }else{
+                            Utils.showAnimation(list.get(position),FlipAnimation.ROTATEX);
+                        }
+                        
                     }else{
-                        Utils.hideAnimation(list.get(position)); 
+                        Utils.hideAnimation(list.get(position),FlipAnimation.ROTATEY); 
                     }
-                    
                 }
             }, (long) 500+i*150);
         }
