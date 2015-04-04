@@ -3,6 +3,11 @@ package com.example.common.util;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+
+import com.example.animation.FlipAnimation;
 
 /**
  * 类描述：
@@ -78,6 +83,63 @@ public class Utils {
         options.inJustDecodeBounds = false;
         options.inPreferredConfig = Bitmap.Config.RGB_565;
         return BitmapFactory.decodeResource(res, resId, options);
+    }
+    
+    public static void showAnimation(final View view){
+        FlipAnimation rotation =
+                new FlipAnimation(90, 0, 0.0f, view.getHeight() / 2.0f);
+        rotation.setDuration(200);
+        rotation.setFillAfter(true);
+        rotation.setInterpolator(new AccelerateInterpolator());
+        rotation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                view.setClickable(false);
+                view.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.clearAnimation();
+                view.setClickable(true);
+                
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        view.startAnimation(rotation);
+    }
+    
+    
+    public static void hideAnimation(final View view){
+        FlipAnimation rotation =
+                new FlipAnimation(0, 90, 0.0f, view.getHeight() / 2.0f);
+        rotation.setDuration(200);
+        rotation.setFillAfter(true);
+        rotation.setInterpolator(new AccelerateInterpolator());
+        rotation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.clearAnimation();
+                view.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        view.startAnimation(rotation);
     }
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -13,17 +14,18 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.animatetest.R;
-import com.example.animation.FlipAnimation;
+import com.example.common.util.Utils;
 import com.example.fragment.BitmapMeshFragment;
 import com.example.fragment.PolygonFragment;
 import com.example.fragment.SquareFragment;
@@ -55,6 +57,12 @@ public class MainActivity extends FragmentActivity {
     private DrawerLayout drawLayout;
     private ImageView runImage;
     private TranslateAnimation left, right, up, down;
+    private Button bt1;
+    private Button bt2;
+    private Button bt3;
+    private Button bt4;
+    private Button bt5;
+    private ArrayList<View> list;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,7 @@ public class MainActivity extends FragmentActivity {
         intView();
         intData();
         setListener();
+        showOrHideAllLayout(0);
         startAnimation();
         Toast.makeText(this, "侧滑或点击菜单可以显示更多哦~", Toast.LENGTH_SHORT).show();
         drawerListView.setAdapter(new ArrayAdapter<String>(this, R.layout.item_filename, drawerList));
@@ -207,6 +216,21 @@ public class MainActivity extends FragmentActivity {
         drawLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         drawerListView = (PullToZoomListView) findViewById(R.id.left_drawer);
         runImage = (ImageView) findViewById(R.id.run_image);
+        
+        bt1 = (Button) findViewById(R.id.buttonDragH);
+        bt2 = (Button) findViewById(R.id.buttonDragV);
+        bt3 = (Button) findViewById(R.id.buttonDragEdge);
+        bt4 = (Button) findViewById(R.id.buttonDragCapture);
+        bt5 = (Button) findViewById(R.id.buttonYoutube);
+        list = new ArrayList<View>();
+        list.add(bt1);
+        list.add(bt2);
+        list.add(bt3);
+        list.add(bt4);
+        list.add(bt5);
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -244,11 +268,12 @@ public class MainActivity extends FragmentActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
         case KeyEvent.KEYCODE_MENU:
-            if (drawLayout.isDrawerOpen(GravityCompat.START)) {
-                drawLayout.closeDrawers();
-            } else {
-                drawLayout.openDrawer(GravityCompat.START);
-            }
+//            if (drawLayout.isDrawerOpen(GravityCompat.START)) {
+//                drawLayout.closeDrawers();
+//            } else {
+//                drawLayout.openDrawer(GravityCompat.START);
+//            }
+            showOrHideAllLayout(1);
             break;
         default:
             break;
@@ -258,7 +283,14 @@ public class MainActivity extends FragmentActivity {
 
     
     private void setListener(){
-        findViewById(R.id.buttonDragH).setOnClickListener(new View.OnClickListener() {
+        runImage.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                showOrHideAllLayout(0);
+            }
+        });
+        bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
@@ -267,7 +299,7 @@ public class MainActivity extends FragmentActivity {
                 startActivity(intent);
             }
         });
-        findViewById(R.id.buttonDragV).setOnClickListener(new View.OnClickListener() {
+        bt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
@@ -275,7 +307,7 @@ public class MainActivity extends FragmentActivity {
                 startActivity(intent);
             }
         });
-        findViewById(R.id.buttonDragEdge).setOnClickListener(new View.OnClickListener() {
+        bt3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
@@ -283,7 +315,7 @@ public class MainActivity extends FragmentActivity {
                 startActivity(intent);
             }
         });
-        findViewById(R.id.buttonDragCapture).setOnClickListener(new View.OnClickListener() {
+        bt4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
@@ -291,12 +323,29 @@ public class MainActivity extends FragmentActivity {
                 startActivity(intent);
             }
         });
-        findViewById(R.id.buttonYoutube).setOnClickListener(new View.OnClickListener() {
+        bt5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
                 startActivity(intent);
             }
         });
+    }
+    
+    
+    private void showOrHideAllLayout(final int type){
+        for (int i = 0; i < 5; i++) {
+            final int position = i;
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    if(type==0){
+                        Utils.showAnimation(list.get(position)); 
+                    }else{
+                        Utils.hideAnimation(list.get(position)); 
+                    }
+                    
+                }
+            }, (long) 500+i*150);
+        }
     }
 }

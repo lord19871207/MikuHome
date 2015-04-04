@@ -1,10 +1,10 @@
 package com.example.activity;
 
-import com.example.animatetest.R;
-
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Window;
+
+import com.example.animatetest.R;
 
 /**
  * 类描述：
@@ -14,7 +14,7 @@ import android.view.Window;
  * @mail youyang@ucweb.com
  * @date 2015-3-31 下午3:06:52
  */
-public class BookcontentActivity extends Activity {
+public class BookcontentActivity extends ActionBarActivity {
 
     /**
      * 构造方法描述：

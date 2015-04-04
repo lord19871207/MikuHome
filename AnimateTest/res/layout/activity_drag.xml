@@ -7,14 +7,14 @@
 
     <View
             android:id="@+id/drag1"
-            android:layout_width="400dp"
-            android:layout_height="400dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="#AD78CC"/>
 
     <View
             android:id="@+id/drag2"
-            android:layout_width="400dp"
-            android:layout_height="400dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="#FF00FF"/>
 
 </com.example.viewport.DragInnerLayout>
