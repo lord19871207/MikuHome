@@ -14,7 +14,7 @@
             android:id="@+id/run_image"
             android:layout_width="1000dip"
             android:layout_height="666dip"
-            android:background="@drawable/bu4"
+            android:background="@drawable/mohuan"
             android:scaleType="matrix" />
 
         <LinearLayout
@@ -24,33 +24,39 @@
 
             <Button
                 android:id="@+id/buttonDragH"
-                android:layout_width="160dp"
-                android:layout_height="100dp"
-                android:text="Horizontal drag" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/heart"
+                android:text="" />
 
             <Button
                 android:id="@+id/buttonDragV"
-                android:layout_width="160dp"
-                android:layout_height="100dp"
-                android:text="Vertical drag" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/yuan"
+                 />
 
             <Button
                 android:id="@+id/buttonDragEdge"
-                android:layout_width="160dp"
-                android:layout_height="100dp"
-                android:text="Edge drag" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/grass"
+                 />
 
             <Button
                 android:id="@+id/buttonDragCapture"
-                android:layout_width="160dp"
-                android:layout_height="100dp"
-                android:text="Capture drag" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/yuan1"
+                
+                 />
 
             <Button
                 android:id="@+id/buttonYoutube"
-                android:layout_width="160dp"
-                android:layout_height="100dp"
-                android:text="Youtube layout" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circle"
+                />
         </LinearLayout>
     </FrameLayout>
 

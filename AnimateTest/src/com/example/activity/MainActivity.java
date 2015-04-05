@@ -7,14 +7,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
@@ -25,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.animatetest.R;
+import com.example.animation.ActivitySplitAnimationUtil;
 import com.example.animation.FlipAnimation;
 import com.example.common.util.Utils;
 import com.example.fragment.BitmapMeshFragment;
@@ -42,7 +45,7 @@ import com.example.viewport.PullToZoomListView;
  * @mail youyang@ucweb.com
  * @date 2015-3-28 下午8:05:35
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends ActionBarActivity {
     private static final String TAG = "MainActivity";
     protected static final int POLYGONFRAGMENT_DEMO = 0x0000;// 20面体
     protected static final int BITMAPMESHFRAGMENT_DEMO1 = 0x0001; // 窗帘效果
@@ -73,8 +76,8 @@ public class MainActivity extends FragmentActivity {
         intView();
         intData();
         setListener();
-        showOrHideAllLayout(0);
         startAnimation();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true) ;
         Toast.makeText(this, "侧滑或点击菜单可以显示更多哦~", Toast.LENGTH_SHORT).show();
         drawerListView.setAdapter(new ArrayAdapter<String>(this, R.layout.item_filename, drawerList));
         drawerListView.setOnItemClickListener(new OnItemClickListener() {
@@ -263,18 +266,47 @@ public class MainActivity extends FragmentActivity {
     public void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
     }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+    
+    private boolean flag1=false;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            if (drawLayout.isDrawerOpen(GravityCompat.START)) {
+                drawLayout.closeDrawers();
+            } else {
+                drawLayout.openDrawer(GravityCompat.START);
+            }
+            break;
+        case R.id.item1:
+            if(!flag1){
+                showOrHideAllLayout(0);
+                flag1=true;
+            }else{
+                showOrHideAllLayout(1);
+                flag1=false;
+            }
+            break;
+        default:
+            break;
+        }
+        
+        return super.onOptionsItemSelected(item);
+    }
 
     @SuppressLint("NewApi")
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
         case KeyEvent.KEYCODE_MENU:
-//            if (drawLayout.isDrawerOpen(GravityCompat.START)) {
-//                drawLayout.closeDrawers();
-//            } else {
-//                drawLayout.openDrawer(GravityCompat.START);
-//            }
-            showOrHideAllLayout(1);
+            
             break;
         default:
             break;
@@ -284,13 +316,6 @@ public class MainActivity extends FragmentActivity {
 
     
     private void setListener(){
-        runImage.setOnClickListener(new OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-                showOrHideAllLayout(0);
-            }
-        });
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -298,8 +323,10 @@ public class MainActivity extends FragmentActivity {
                 intent.putExtra("horizontal", true);
                 intent.putExtra("vertical", true);
                 startActivity(intent);
+//                ActivitySplitAnimationUtil.startActivity(MainActivity.this, intent);
             }
         });
+        
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -308,6 +335,7 @@ public class MainActivity extends FragmentActivity {
                 startActivity(intent);
             }
         });
+        
         bt3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -353,4 +381,7 @@ public class MainActivity extends FragmentActivity {
             }, (long) 500+i*150);
         }
     }
+    
+    
+ 
 }

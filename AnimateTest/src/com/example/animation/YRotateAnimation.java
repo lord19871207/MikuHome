@@ -25,8 +25,8 @@ public class YRotateAnimation extends Animation {
 	public void initialize(int width, int height, int parentWidth,
 			int parentHeight) {
 		super.initialize(width, height, parentWidth, parentHeight);
-		mCenterX = width / 2;
-		mCenterY = height / 2;
+		mCenterX = width / 4;
+		mCenterY = height / 4;
 		setDuration(1200);
 		setFillAfter(true);
 		// setRepeatCount(100);

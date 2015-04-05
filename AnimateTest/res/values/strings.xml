@@ -7,5 +7,7 @@
     <string name="shadow">阴影</string>
     <string name="gray">灰色</string>
     <string name="reflect">反色</string>
+    <string name="_viewdraghelper">手势_ViewDragHelper</string>
+    <string name="_next">待定</string>
 
 </resources>

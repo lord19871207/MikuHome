@@ -55,7 +55,7 @@ public class TouchWrapView extends View {
     }
 
     private void initview() {
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.splash_load);
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.time);
         paint = new Paint();
         paint.setColor(Color.BLUE);
         paint.setAntiAlias(true);

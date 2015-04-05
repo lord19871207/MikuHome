@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- <Button
+        android:id="@+id/buttonDragH"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="Horizontal drag" />
+
+    <Button
+        android:id="@+id/buttonDragV"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="Vertical drag" />
+
+    <Button
+        android:id="@+id/buttonDragEdge"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="Edge drag" />
+
+    <Button
+        android:id="@+id/buttonDragCapture"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="Capture drag" />
+
+    <Button
+        android:id="@+id/buttonYoutube"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:text="Youtube layout" /> -->
+
+</LinearLayout>

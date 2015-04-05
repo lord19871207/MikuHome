@@ -1094,25 +1094,33 @@ containing a value of this type.
         public static final int bu4=0x7f02005e;
         public static final int cat=0x7f02005f;
         public static final int ccc=0x7f020060;
-        public static final int content_films=0x7f020061;
-        public static final int content_music=0x7f020062;
-        public static final int ic_launcher=0x7f020063;
-        public static final int icn_1=0x7f020064;
-        public static final int icn_2=0x7f020065;
-        public static final int icn_3=0x7f020066;
-        public static final int icn_4=0x7f020067;
-        public static final int icn_5=0x7f020068;
-        public static final int icn_6=0x7f020069;
-        public static final int icn_7=0x7f02006a;
-        public static final int icn_close=0x7f02006b;
-        public static final int item_down=0x7f02006c;
-        public static final int item_up=0x7f02006d;
-        public static final int jay=0x7f02006e;
-        public static final int line=0x7f02006f;
-        public static final int line1=0x7f020070;
-        public static final int menu_item_selector=0x7f020071;
-        public static final int qian=0x7f020072;
-        public static final int splash_load=0x7f020073;
+        public static final int circle=0x7f020061;
+        public static final int content_films=0x7f020062;
+        public static final int content_music=0x7f020063;
+        public static final int flower=0x7f020064;
+        public static final int grass=0x7f020065;
+        public static final int heart=0x7f020066;
+        public static final int ic_launcher=0x7f020067;
+        public static final int icn_1=0x7f020068;
+        public static final int icn_2=0x7f020069;
+        public static final int icn_3=0x7f02006a;
+        public static final int icn_4=0x7f02006b;
+        public static final int icn_5=0x7f02006c;
+        public static final int icn_6=0x7f02006d;
+        public static final int icn_7=0x7f02006e;
+        public static final int icn_close=0x7f02006f;
+        public static final int item_down=0x7f020070;
+        public static final int item_up=0x7f020071;
+        public static final int jay=0x7f020072;
+        public static final int line=0x7f020073;
+        public static final int line1=0x7f020074;
+        public static final int menu_item_selector=0x7f020075;
+        public static final int mohuan=0x7f020076;
+        public static final int qian=0x7f020077;
+        public static final int splash_load=0x7f020078;
+        public static final int time=0x7f020079;
+        public static final int yuan=0x7f02007a;
+        public static final int yuan1=0x7f02007b;
     }
     public static final class id {
         public static final int action_bar=0x7f0a001c;
@@ -1168,6 +1176,8 @@ containing a value of this type.
         public static final int img_1=0x7f0a0052;
         public static final int img_2=0x7f0a0054;
         public static final int img_3=0x7f0a0053;
+        public static final int item1=0x7f0a0059;
+        public static final int item2=0x7f0a005a;
         public static final int left_drawer=0x7f0a0047;
         public static final int listMode=0x7f0a0006;
         public static final int list_item=0x7f0a0029;
@@ -1268,12 +1278,15 @@ containing a value of this type.
         public static final int fragment_three_picture=0x7f030022;
         public static final int item_filename=0x7f030023;
         public static final int menu_list_item=0x7f030024;
-        public static final int support_simple_spinner_dropdown_item=0x7f030025;
+        public static final int menutest=0x7f030025;
+        public static final int support_simple_spinner_dropdown_item=0x7f030026;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
     }
     public static final class string {
+        public static final int _next=0x7f0b0014;
+        public static final int _viewdraghelper=0x7f0b0013;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abc_action_bar_home_description=0x7f0b0001;
@@ -2700,7 +2713,7 @@ containing a value of this type.
          */
         public static final int[] MenuView = {
             0x010100ae, 0x0101012c, 0x0101012d, 0x0101012e,
-            0x0101012f, 0x01010130, 0x01010131, 0x01010435
+            0x0101012f, 0x01010130, 0x01010131, 0x0101052f
         };
         /**
           <p>
