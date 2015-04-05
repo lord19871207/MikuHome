@@ -2,9 +2,6 @@ package com.example.activity.item;
 
 import com.example.interfaces.Resourceble;
 
-/**
- * Created by Konstantin on 23.12.2014.
- */
 public class SlideMenuItem implements Resourceble {
     private String name;
     private int imageRes;

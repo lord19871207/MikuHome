@@ -30,7 +30,7 @@ public class AutoScrollerView extends View implements BookSimulationPageFlip {
     private Bitmap bitmap2;//分割线
     private Bitmap bitmap3;//整页图片作为分割线
     private AutoScrollerController controll;
-    private int type=1;
+    private int type=0;
     private int flag=0;
 
     public AutoScrollerView(Context context, AttributeSet attrs) {
@@ -99,18 +99,18 @@ public class AutoScrollerView extends View implements BookSimulationPageFlip {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
             controll.setAutoScrollOffset((int)event.getY());
-            if(event.getAction()==MotionEvent.ACTION_UP){
-                flag++;
-                if(flag%2==0){
-                    type=0;  
-                }else{
-                    type=1;
-                }
+//            if(event.getAction()==MotionEvent.ACTION_UP){
+//                flag++;
+//                if(flag%2==0){
+//                    type=0;  
+//                }else{
+//                    type=1;
+//                }
 //                controll.startAutoScroll(type);
 //                FlipAnimation openAnimation=new FlipAnimation(90,270,0,200);
 //                startAnimation(openAnimation);
                 
-            }
+//            }
         return true;
     }
 

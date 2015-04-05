@@ -109,15 +109,15 @@ public class Cube {
 
     float texCoords[] = new float[] { // 纹理坐标对应数组
     // FRONT
-            0.0f, 0.0f,
-            1.0f, 0.0f,
             0.0f, 1.0f,
             1.0f, 1.0f,
+            0.0f, 0.0f,
+            1.0f, 0.0f,
             // BACK
-            1.0f, 0.0f,
-            1.0f, 1.0f,
             0.0f, 0.0f,
             0.0f, 1.0f,
+            1.0f, 0.0f,
+            1.0f, 1.0f,
             // LEFT
             1.0f, 0.0f,
             1.0f, 1.0f,
@@ -149,7 +149,7 @@ public class Cube {
      */
     public Cube() {
         setVerteices(box);
-//        setIndeices(indices);
+        // setIndeices(indices);
         setNormalFloatBuffer(norms);
         setTextureCoordinates(texCoords);
     }
@@ -278,14 +278,14 @@ public class Cube {
         indicesBuffer.put(indices);
         indicesBuffer.position(0);
     }
-    
+
     /**
      * Set the texture coordinates.
      * 
      * @param textureCoords
      */
     protected void setTextureCoordinates(float[] textureCoords) { // New
-                                                                    // function.
+                                                                  // function.
         // float is 4 bytes, therefore we multiply the number if
         // vertices with 4.
         ByteBuffer byteBuf = ByteBuffer
@@ -295,12 +295,12 @@ public class Cube {
         mTextureBUffer.put(textureCoords);
         mTextureBUffer.position(0);
     }
-    
+
     public void setNormalFloatBuffer(float[] arr) {
-        ByteBuffer bb = ByteBuffer.allocateDirect(arr.length * 4);//分配缓冲空间，一个float占4个字节
-        bb.order(ByteOrder.nativeOrder()); //设置字节顺序， 其中ByteOrder.nativeOrder()是获取本机字节顺序
+        ByteBuffer bb = ByteBuffer.allocateDirect(arr.length * 4);// 分配缓冲空间，一个float占4个字节
+        bb.order(ByteOrder.nativeOrder()); // 设置字节顺序， 其中ByteOrder.nativeOrder()是获取本机字节顺序
         normalBuffer = bb.asFloatBuffer();
-        normalBuffer.put(arr);        //添加数据
-        normalBuffer.position(0);      //设置数组的起始位置
+        normalBuffer.put(arr);        // 添加数据
+        normalBuffer.position(0);      // 设置数组的起始位置
     }
 }

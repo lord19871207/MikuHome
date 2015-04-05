@@ -158,11 +158,11 @@ public class AutoScrollerController {
             bottom=autoScrollOffset-1;
         }
 //        canvas.drawRect(0, top, width, bottom, paint);
-        if(type==FRONT){
+//        if(type==FRONT){
             canvas.drawBitmap(bitmap_2, 0, top, paint);
-        }else if(type==BACK){
-            canvas.drawBitmap(bitmap_3, 0, bottom, paint);
-        }
+//        }else if(type==BACK){
+//            canvas.drawBitmap(bitmap_3, 0, bottom, paint);
+//        }
     }
     
     public int getAutoScrollOffset (){

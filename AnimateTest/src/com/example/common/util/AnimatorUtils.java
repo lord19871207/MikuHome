@@ -4,6 +4,18 @@ import android.view.View;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 
+/**
+ * 
+ * 类描述：nineold 属性动画工具类
+ * 用法：
+ * ValueAnimator colorAnim = ObjectAnimator.ofFloat(myView, "scaleX", 0.3f);
+   colorAnim.setDuration(1000);
+   colorAnim.start();
+   
+ * @author 尤洋
+ * @mail youyang@ucweb.com
+ * @date 2015-4-5 上午11:04:58
+ */
 public class AnimatorUtils {
 
     public static ObjectAnimator rotationCloseToRight(View v) {
