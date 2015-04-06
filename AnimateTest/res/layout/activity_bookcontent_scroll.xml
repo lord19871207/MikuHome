@@ -3,14 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <!-- <com.example.viewport.SimulateView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" /> -->
     
-    <com.example.viewport.AutoScrollerView
+    <com.example.viewport.ScrollerView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    
 
 </LinearLayout>

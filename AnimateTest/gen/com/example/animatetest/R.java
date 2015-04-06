@@ -1266,20 +1266,21 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030016;
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_bookcontent=0x7f030018;
-        public static final int activity_drag=0x7f030019;
-        public static final int activity_main=0x7f03001a;
-        public static final int activity_splash=0x7f03001b;
-        public static final int fragment_blur=0x7f03001c;
-        public static final int fragment_color_matrix=0x7f03001d;
-        public static final int fragment_main=0x7f03001e;
-        public static final int fragment_mesh=0x7f03001f;
-        public static final int fragment_mesh_touch=0x7f030020;
-        public static final int fragment_opengl_square=0x7f030021;
-        public static final int fragment_three_picture=0x7f030022;
-        public static final int item_filename=0x7f030023;
-        public static final int menu_list_item=0x7f030024;
-        public static final int menutest=0x7f030025;
-        public static final int support_simple_spinner_dropdown_item=0x7f030026;
+        public static final int activity_bookcontent_scroll=0x7f030019;
+        public static final int activity_drag=0x7f03001a;
+        public static final int activity_main=0x7f03001b;
+        public static final int activity_splash=0x7f03001c;
+        public static final int fragment_blur=0x7f03001d;
+        public static final int fragment_color_matrix=0x7f03001e;
+        public static final int fragment_main=0x7f03001f;
+        public static final int fragment_mesh=0x7f030020;
+        public static final int fragment_mesh_touch=0x7f030021;
+        public static final int fragment_opengl_square=0x7f030022;
+        public static final int fragment_three_picture=0x7f030023;
+        public static final int item_filename=0x7f030024;
+        public static final int menu_list_item=0x7f030025;
+        public static final int menutest=0x7f030026;
+        public static final int support_simple_spinner_dropdown_item=0x7f030027;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
