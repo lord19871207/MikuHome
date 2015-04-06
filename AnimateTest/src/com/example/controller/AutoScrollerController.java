@@ -127,7 +127,6 @@ public class AutoScrollerController {
         }else{
             canvas.drawBitmap(bitmap_1, 0, 0, paint);
         }
-        
         canvas.restore();
     }
     

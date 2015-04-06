@@ -24,37 +24,33 @@
 
             <Button
                 android:id="@+id/buttonDragH"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:background="@drawable/heart"
                 android:text="" />
 
             <Button
                 android:id="@+id/buttonDragV"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:background="@drawable/yuan"
                  />
-
             <Button
                 android:id="@+id/buttonDragEdge"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:background="@drawable/grass"
                  />
-
             <Button
                 android:id="@+id/buttonDragCapture"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:background="@drawable/yuan1"
-                
                  />
-
             <Button
                 android:id="@+id/buttonYoutube"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:background="@drawable/circle"
                 />
         </LinearLayout>
