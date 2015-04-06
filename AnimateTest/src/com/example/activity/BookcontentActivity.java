@@ -23,6 +23,7 @@ public class BookcontentActivity extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_PROGRESS); // 去标题栏
         setContentView(R.layout.activity_bookcontent);
+//        setContentView(R.layout.activity_bookcontent_scroll);
     }
 
 }
