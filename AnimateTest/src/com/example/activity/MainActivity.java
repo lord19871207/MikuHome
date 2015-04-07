@@ -25,9 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.animatetest.R;
-import com.example.animation.ActivitySplitAnimationUtil;
 import com.example.animation.FlipAnimation;
 import com.example.common.util.Utils;
 import com.example.fragment.BitmapMeshFragment;
@@ -54,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
     protected static final int BITMAPMESHFRAGMENT_DEMO4 = 0x0004; // 滤镜效果
     protected static final int BITMAPMESHFRAGMENT_DEMO5 = 0x0005; // 三张图片切换
     protected static final int ROTATE_TRANSFLATE_DEMO = 0x0006; // opengl实现的三张图片切换
-    protected static final int AUTO_SCROLL = 0x0007;//上下自动滚屏
+    protected static final int AUTO_SCROLL = 0x0007;// 上下自动滚屏
     private ArrayList<String> drawerList;
     private PullToZoomListView drawerListView;
     private FragmentManager manager;
@@ -77,7 +75,7 @@ public class MainActivity extends ActionBarActivity {
         intData();
         setListener();
         startAnimation();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true) ;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Toast.makeText(this, "侧滑或点击菜单可以显示更多哦~", Toast.LENGTH_SHORT).show();
         drawerListView.setAdapter(new ArrayAdapter<String>(this, R.layout.item_filename, drawerList));
         drawerListView.setOnItemClickListener(new OnItemClickListener() {
@@ -112,8 +110,8 @@ public class MainActivity extends ActionBarActivity {
                     switchToNextFragment(new BitmapMeshFragment(BitmapMeshFragment.THIRDDIMENSIONVIEW));
                     break;
                 case AUTO_SCROLL: // 自动滚屏
-                    Intent intent =new Intent(MainActivity.this,BookcontentActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(MainActivity.this, BookcontentActivity.class);
+//                    startActivity(intent);
                     break;
                 default:
                     break;
@@ -123,6 +121,8 @@ public class MainActivity extends ActionBarActivity {
             }
 
         });
+
+        showOrHideAllLayout(0, null);
 
     }
 
@@ -220,7 +220,7 @@ public class MainActivity extends ActionBarActivity {
         drawLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         drawerListView = (PullToZoomListView) findViewById(R.id.left_drawer);
         runImage = (ImageView) findViewById(R.id.run_image);
-        
+
         bt1 = (Button) findViewById(R.id.buttonDragH);
         bt2 = (Button) findViewById(R.id.buttonDragV);
         bt3 = (Button) findViewById(R.id.buttonDragEdge);
@@ -254,7 +254,7 @@ public class MainActivity extends ActionBarActivity {
         drawerList.add("颜色过滤器效果");
         drawerList.add("三张图片来回切换");
         drawerList.add("opengl平移和旋转");
-        drawerList.add("自动滚屏");
+//        drawerList.add("自动滚屏");
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
         drawerList.add("后续效果逐渐添加");
@@ -266,15 +266,16 @@ public class MainActivity extends ActionBarActivity {
     public void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         return true;
     }
-    
-    private boolean flag1=false;
+
+    private boolean flag1 = false;
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -286,18 +287,18 @@ public class MainActivity extends ActionBarActivity {
             }
             break;
         case R.id.item1:
-            if(!flag1){
-                showOrHideAllLayout(0);
-                flag1=true;
-            }else{
-                showOrHideAllLayout(1);
-                flag1=false;
+            if (!flag1) {
+                showOrHideAllLayout(0, null);
+                flag1 = true;
+            } else {
+                showOrHideAllLayout(1, null);
+                flag1 = false;
             }
             break;
         default:
             break;
         }
-        
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -306,7 +307,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
         case KeyEvent.KEYCODE_MENU:
-            
+
             break;
         default:
             break;
@@ -314,28 +315,53 @@ public class MainActivity extends ActionBarActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    
-    private void setListener(){
+    private void setListener() {
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
-                intent.putExtra("horizontal", true);
-                intent.putExtra("vertical", true);
-                startActivity(intent);
-//                ActivitySplitAnimationUtil.startActivity(MainActivity.this, intent);
+                // Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
+                // intent.putExtra("horizontal", true);
+                // intent.putExtra("vertical", true);
+                // startActivity(intent);
+                showOrHideAllLayout(1, new ControllAnimation() {
+
+                    @Override
+                    public void postShowAnimation() {
+                    }
+
+                    @Override
+                    public void postHideAnimation() {
+                        Intent intent = new Intent(MainActivity.this, BookcontentActivity.class);
+                        intent.putExtra("layoutid", R.layout.activity_bookcontent);
+                        startActivity(intent);
+                    }
+                });
+                // ActivitySplitAnimationUtil.startActivity(MainActivity.this, intent);
             }
         });
-        
+
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
-                intent.putExtra("vertical", true);
-                startActivity(intent);
+                // Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
+                // intent.putExtra("vertical", true);
+                // startActivity(intent);
+                showOrHideAllLayout(1, new ControllAnimation() {
+
+                    @Override
+                    public void postShowAnimation() {
+                    }
+
+                    @Override
+                    public void postHideAnimation() {
+                        Intent intent = new Intent(MainActivity.this, BookcontentActivity.class);
+                        intent.putExtra("layoutid", R.layout.activity_bookcontent_scroll);
+                        startActivity(intent);
+                    }
+                });
             }
         });
-        
+
         bt3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -360,28 +386,46 @@ public class MainActivity extends ActionBarActivity {
             }
         });
     }
-    
-    
-    private void showOrHideAllLayout(final int type){
+
+    private void showOrHideAllLayout(final int type, final ControllAnimation controller) {
         for (int i = 0; i < 5; i++) {
             final int position = i;
             new Handler().postDelayed(new Runnable() {
                 public void run() {
-                    if(type==0){
-                        if(position==0){
-                            Utils.showAnimation(list.get(position),FlipAnimation.ROTATEY); 
-                        }else{
-                            Utils.showAnimation(list.get(position),FlipAnimation.ROTATEX);
+                    if (type == 0) {
+                        if (position == 0) {
+                            Utils.showAnimation(list.get(position), FlipAnimation.ROTATEY);
+                        } else {
+                            Utils.showAnimation(list.get(position), FlipAnimation.ROTATEX);
                         }
-                        
-                    }else{
-                        Utils.hideAnimation(list.get(position),FlipAnimation.ROTATEY); 
+                        // if (controller != null&&position==4)
+                        // controller.postShowAnimation();
+
+                    } else {
+                        Utils.hideAnimation(list.get(position), FlipAnimation.ROTATEY);
+                        // if (controller != null&&position==4)
+                        // controller.postHideAnimation();
                     }
                 }
-            }, (long) 500+i*150);
+            }, (long) 500 + i * 150);
+
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    if (type == 0) {
+                        if (controller != null && position == 4)
+                            controller.postShowAnimation();
+                    } else {
+                        if (controller != null && position == 4)
+                            controller.postHideAnimation();
+                    }
+                }
+            }, (long) 500 + 800);
+
         }
     }
-    
-    
- 
+}
+
+interface ControllAnimation {
+    public void postShowAnimation();
+    public void postHideAnimation();
 }

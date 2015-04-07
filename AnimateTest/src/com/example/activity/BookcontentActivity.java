@@ -1,8 +1,8 @@
 package com.example.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
 
 import com.example.animatetest.R;
 
@@ -21,8 +21,10 @@ public class BookcontentActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_PROGRESS); // 去标题栏
-        setContentView(R.layout.activity_bookcontent);
+
+        Intent intent=getIntent();
+        int id =intent.getIntExtra("layoutid", R.layout.activity_bookcontent);
+        setContentView(id);
 //        setContentView(R.layout.activity_bookcontent_scroll);
     }
 
