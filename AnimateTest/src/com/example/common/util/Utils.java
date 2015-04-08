@@ -1,8 +1,10 @@
 package com.example.common.util;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -147,6 +149,25 @@ public class Utils {
         });
 
         view.startAnimation(rotation);
+    }
+
+    /**
+     * 方法描述：
+     * @author 尤洋
+     * @Title: getScreenSize
+     * @param context
+     * @return
+     * @return int[]
+     * @date 2015-4-8 下午4:22:56
+     */
+    public static int[] getScreenSize(Activity context) {
+        DisplayMetrics localDisplayMetrics = new DisplayMetrics();
+        context.getWindowManager().getDefaultDisplay()
+                .getMetrics(localDisplayMetrics);
+        int mScreenHeight = localDisplayMetrics.heightPixels;
+        int mScreenWidth= localDisplayMetrics.widthPixels;
+        int[] size={mScreenWidth,mScreenHeight};
+        return size;
     }
 
 }

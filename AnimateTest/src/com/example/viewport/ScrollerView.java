@@ -49,7 +49,6 @@ public class ScrollerView extends View {
     private float mLastTouchX;
     /** 一次完整touch事件中上一次的y轴坐标 */
     private float mLastTouchY;
-
     private float moveX;
     private float moveY;
     /** 加速度计算工具 */
@@ -65,14 +64,12 @@ public class ScrollerView extends View {
     private float tempY;
     private int width;
 
-    public ScrollerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
+    public ScrollerView(Context context) {
+        this(context,null);
     }
-
+    
     public ScrollerView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
+        this(context, attrs,0);
     }
 
     public ScrollerView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -80,8 +77,8 @@ public class ScrollerView extends View {
         init(context);
     }
 
-    public ScrollerView(Context context) {
-        super(context);
+    public ScrollerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
 
@@ -94,8 +91,11 @@ public class ScrollerView extends View {
                 (getResources(), R.drawable.bu2, 512, 720);
         bitmap2 = Utils.decodeSampledBitmapFromResource
                 (getResources(), R.drawable.cat, 512, 720);
-
-        intDrawBoard();
+        
+        bitmap=Bitmap.createScaledBitmap(bitmap, 720, scrollViewH, true);  
+        bitmap1=Bitmap.createScaledBitmap(bitmap1, 720, scrollViewH, true);  
+        bitmap2=Bitmap.createScaledBitmap(bitmap2, 720, scrollViewH, true);  
+        initDrawBoard();
         // controller=new ScrollerController();
         mVelocityTracker = VelocityTracker.obtain();
         mScroller = new Scroller(getContext(), new DecelerateInterpolator());
@@ -136,13 +136,12 @@ public class ScrollerView extends View {
         // if (!mModeScroller.isFinished()) {
         // // 停止动画 上下翻页时在这里停止加速度
         // mFlingRunnable.endFling(true);
-        // mModeScroller.abortAnimation();
+         mScroller.abortAnimation();
         // }
     }
 
     /*
      * (non-Javadoc)
-     * 
      * @see android.view.View#onDraw(android.graphics.Canvas)
      */
     @Override
@@ -159,7 +158,7 @@ public class ScrollerView extends View {
         // controlReturnType();
     }
 
-    private void intDrawBoard() {
+    private void initDrawBoard() {
         broad1 = -3 * scrollViewH / 2;
         broad2 = -scrollViewH / 2;
         broad3 = -5 * scrollViewH / 2;
@@ -193,7 +192,52 @@ public class ScrollerView extends View {
             canvas.drawBitmap(bitmap2, 0, drawY + 2 * scrollViewH, null);
             canvas.drawBitmap(bitmap, 0, drawY + 3 * scrollViewH, null);
             canvas.drawBitmap(bitmap1, 0, drawY + scrollViewH * 4, null);
-
+        } else if (tempY > (broad2) || tempY < (broad5)) {
+            // 3 1 2 (-0.5-0.5)
+            canvas.drawBitmap(bitmap2, 0, drawY - scrollViewH, null);
+            canvas.drawBitmap(bitmap, 0, drawY, null);
+            canvas.drawBitmap(bitmap1, 0, drawY + scrollViewH, null);
+        } else if (tempY >= (broad5) && tempY < (broad6)) {
+            // 2 3 1 (0.5-1.5)
+            canvas.drawBitmap(bitmap1, 0, drawY - 2 * scrollViewH, null);
+            canvas.drawBitmap(bitmap2, 0, drawY - scrollViewH, null);
+            canvas.drawBitmap(bitmap, 0, drawY, null);
+        } else if (tempY >= (broad6) && tempY < (broad7)) {
+            // 1 ,2 ,3 (1.5-2.5)
+            canvas.drawBitmap(bitmap, 0, drawY - 3 * scrollViewH, null);
+            canvas.drawBitmap(bitmap1, 0, drawY - 2 * scrollViewH, null);
+            canvas.drawBitmap(bitmap2, 0, drawY - scrollViewH, null);
+        } else if (tempY >= broad7 && tempY < broad8) {
+            // 3 1 2 (2.5-3)
+            canvas.drawBitmap(bitmap2, 0, 2 * scrollViewH - drawY, null);
+            canvas.drawBitmap(bitmap, 0, 3 * scrollViewH - drawY, null);
+            canvas.drawBitmap(bitmap1, 0, 4 * scrollViewH - drawY, null);
+        }
+    }
+    
+    
+    
+    private void controllBitmaoDisplay1(Canvas canvas) {
+        Log.i("youyang", "==========");
+        /* 控制显示左上角标题 */
+        if (tempY >= broad1 && tempY <= broad2) {
+            // 1 2 3 (-1.5,-0.5)
+            Log.i("youyang", "==========1");
+            canvas.drawBitmap(bitmap, 0, drawY, null);
+            canvas.drawBitmap(bitmap1, 0, drawY + scrollViewH, null);
+            canvas.drawBitmap(bitmap2, 0, drawY + scrollViewH * 2, null);
+        } else if (tempY >= (broad3) && tempY < (broad1)) {
+            // 2 3 1 (-2.5--1.5)
+            Log.i("youyang", "==========2");
+            canvas.drawBitmap(bitmap1, 0, drawY + scrollViewH, null);
+            canvas.drawBitmap(bitmap2, 0, drawY + 2 * scrollViewH, null);
+            canvas.drawBitmap(bitmap, 0, drawY + scrollViewH * 3, null);
+        } else if (tempY >= (broad4) && tempY < (broad3)) {
+            // 3 1 2 (-3,-2.5)
+            Log.i("youyang", "==========3");
+            canvas.drawBitmap(bitmap2, 0, drawY + 2 * scrollViewH, null);
+            canvas.drawBitmap(bitmap, 0, drawY + 3 * scrollViewH, null);
+            canvas.drawBitmap(bitmap1, 0, drawY + scrollViewH * 4, null);
         } else if (tempY > (broad2) || tempY < (broad5)) {
             // 3 1 2 (-0.5-0.5)
             canvas.drawBitmap(bitmap2, 0, drawY - scrollViewH, null);

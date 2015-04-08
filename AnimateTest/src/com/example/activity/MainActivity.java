@@ -409,17 +409,19 @@ public class MainActivity extends ActionBarActivity {
                 }
             }, (long) 500 + i * 150);
 
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    if (type == 0) {
-                        if (controller != null && position == 4)
-                            controller.postShowAnimation();
-                    } else {
-                        if (controller != null && position == 4)
-                            controller.postHideAnimation();
+            if(position == 4){
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        if (type == 0) {
+                            if (controller != null )
+                                controller.postShowAnimation();
+                        } else {
+                            if (controller != null )
+                                controller.postHideAnimation();
+                        }
                     }
-                }
-            }, (long) 500 + 800);
+                }, (long) 500 + 800);
+            }
 
         }
     }
