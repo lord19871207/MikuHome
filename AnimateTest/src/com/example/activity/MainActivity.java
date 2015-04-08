@@ -365,9 +365,17 @@ public class MainActivity extends ActionBarActivity {
         bt3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DragLayoutActivity.class);
-                intent.putExtra("edge", true);
-                startActivity(intent);
+                showOrHideAllLayout(1, new ControllAnimation() {
+                    @Override
+                    public void postShowAnimation() {
+                    }
+                    @Override
+                    public void postHideAnimation() {
+                        Intent intent = new Intent(MainActivity.this, BookcontentActivity.class);
+                        intent.putExtra("layoutid", R.layout.activity_bookcontent_simulate);
+                        startActivity(intent);
+                    }
+                });
             }
         });
         bt4.setOnClickListener(new View.OnClickListener() {

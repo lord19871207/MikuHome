@@ -25,7 +25,6 @@ public interface BookSimulationPageFlip {
 
     /**
      * 方法描述：加载控件中的bitmap图片
-     * 
      * @param int type为返回的bitmap是哪一页 0 1
      * @return void
      * @date 2015-3-31 上午10:13:51
@@ -34,7 +33,6 @@ public interface BookSimulationPageFlip {
 
     /**
      * 方法描述：设置触摸点的坐标
-     * 
      * @param x
      * @param y
      * @return Point
@@ -44,7 +42,6 @@ public interface BookSimulationPageFlip {
 
     /**
      * 方法描述：获取背景主题
-     * 
      * @return int
      * @date 2015-3-31 上午11:15:27
      */
@@ -52,7 +49,6 @@ public interface BookSimulationPageFlip {
 
     /**
      * 方法描述：动画结束时需要执行的操作
-     * 
      * @return void
      * @date 2015-3-31 上午11:37:48
      */

@@ -20,7 +20,7 @@ import android.widget.Scroller;
 import com.example.interfaces.BookSimulationPageFlip;
 
 /**
- * 类描述：仿真翻页的接口类
+ * 类描述：仿真翻页功能类
  * 
  * @Package com.example.interfaces
  * @ClassName: BookSimulationPageFlip
@@ -733,15 +733,6 @@ public class BookSimulationControl {
         }
         // 仿真翻页拖动事件处理****************************
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
 
     public void controllTouchPointWhenUp() {
@@ -965,11 +956,4 @@ public class BookSimulationControl {
         drawCurrentBackArea(canvas, false);
     }
     
-    
-    
-    
-    
-    
-    
-
 }
