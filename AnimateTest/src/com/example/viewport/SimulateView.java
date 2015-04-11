@@ -1,9 +1,12 @@
 package com.example.viewport;
 
+import java.lang.reflect.Method;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -48,25 +51,36 @@ public class SimulateView extends View implements BookSimulationPageFlip{
     public SimulateView(Context context, AttributeSet attrs) {
         super(context, attrs);
         pointf=new PointF();
+        
         bitmap = Utils.decodeSampledBitmapFromResource
                 (getResources(), R.drawable.bu1, 512, 720);
         bitmap1 = Utils.decodeSampledBitmapFromResource
                 (getResources(), R.drawable.bu2, 512, 720);
         flip=new BookSimulationControl(context,this) ;
         flip.setNeedImpl(this);
+        
+        try {
+            Class<View> c = View.class;
+            Method setLayerTypeMethod = c.getDeclaredMethod("setLayerType", int.class, Paint.class);
+            if (setLayerTypeMethod != null) {
+                int layerType = 1; // View.LAYER_TYPE_SOFTWARE
+                setLayerTypeMethod.invoke(this, layerType, null);
+            }
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        pointf.set(event.getX(),event.getY());
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
             mTouchDownX=event.getX();
             mTouchDownY=event.getY();
-            pointf.set(event.getX(),event.getY());
+            
             break;
         case MotionEvent.ACTION_MOVE:
             Log.i(TAG, "MotionEvent.ACTION_MOVE");
-            pointf.set(event.getX(),event.getY());
             flip.controllTouchPointWhenMove();
             
             break;
@@ -75,7 +89,6 @@ public class SimulateView extends View implements BookSimulationPageFlip{
             mLastTouchX=event.getX();
             mLastTouchY=event.getY();
             Log.i(TAG, "MotionEvent.ACTION_UP");
-            pointf.set(event.getX(),event.getY());
             flip.controllTouchPointWhenUp();
             break;
         default:
