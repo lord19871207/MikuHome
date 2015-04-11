@@ -1,5 +1,7 @@
 package com.example.viewport;
 
+import java.lang.reflect.Method;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,6 +42,15 @@ import com.example.animatetest.R;
             paint.setColor(Color.BLUE);
             paint.setPathEffect(new PathEffect());
             bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.splash_load);
+            try {
+                Class<View> c = View.class;
+                Method setLayerTypeMethod = c.getDeclaredMethod("setLayerType", int.class, Paint.class);
+                if (setLayerTypeMethod != null) {
+                    int layerType = 1; // View.LAYER_TYPE_SOFTWARE
+                    setLayerTypeMethod.invoke(this, layerType, null);
+                }
+            } catch (Exception ignored) {
+            }
         }   
         
         @Override
