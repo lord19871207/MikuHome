@@ -8,6 +8,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
@@ -72,12 +73,15 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
     private void init_model(int type) {
         angle = 90;
         Bitmap bitmap = Utils.decodeSampledBitmapFromResource
-                (getResources(), R.drawable.bu1, 512, 512);
+                (getResources(), R.drawable.bu1, 100, 100);
         Bitmap bitmap1 = Utils.decodeSampledBitmapFromResource
-                (getResources(), R.drawable.bu2, 512, 512);
+                (getResources(), R.drawable.bu2, 100, 100);
         Bitmap bitmap2 = Utils.decodeSampledBitmapFromResource
-                (getResources(), R.drawable.qian, 512, 512);
+                (getResources(), R.drawable.qian, 100, 100);
         
+        bitmap=getTexture(bitmap);
+        bitmap1=getTexture(bitmap1);
+        bitmap2=getTexture(bitmap2);
         if(type==0){
             square = new Square();
             square1 = new Square();
@@ -97,6 +101,47 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
         }
         
         
+    }
+    
+    /**
+     * Calculates the next highest power of two for a given integer.
+     */
+    private static int getNextHighestPO2(int n) {
+        n -= 1;
+        n = n | (n >> 1);
+        n = n | (n >> 2);
+        n = n | (n >> 4);
+        n = n | (n >> 8);
+        n = n | (n >> 16);
+        n = n | (n >> 32);
+        return n + 1;
+    }
+
+    /**
+     * Generates nearest power of two sized Bitmap for give Bitmap. Returns this
+     * new Bitmap using default return statement + original texture coordinates
+     * are stored into RectF.
+     */
+    private static Bitmap getTexture(Bitmap bitmap) {
+        // Bitmap original size.
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        // Bitmap size expanded to next power of two. This is done due to
+        // the requirement on many devices, texture width and height should
+        // be power of two.
+        int newW = getNextHighestPO2(w);
+        int newH = getNextHighestPO2(h);
+
+        // TODO: Is there another way to create a bigger Bitmap and copy
+        // original Bitmap to it more efficiently? Immutable bitmap anyone?
+        Bitmap bitmapTex = Bitmap.createBitmap(newW, newH, bitmap.getConfig());
+        Canvas c = new Canvas(bitmapTex);
+        c.drawBitmap(bitmap, 0, 0, null);
+
+        // Calculate final texture coordinates.
+        float texX = (float) w / newW;
+        float texY = (float) h / newH;
+        return bitmapTex;
     }
 
     @Override
