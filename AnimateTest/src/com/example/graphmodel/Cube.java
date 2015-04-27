@@ -109,10 +109,10 @@ public class Cube {
 
     float texCoords[] = new float[] { // 纹理坐标对应数组
     // FRONT
-            0.0f, 1.0f,
-            1.0f, 1.0f,
+            0.0f, 0.7f,
+            0.5f, 0.7f,
             0.0f, 0.0f,
-            1.0f, 0.0f,
+            0.5f, 0.0f,
             // BACK
             0.0f, 0.0f,
             0.0f, 1.0f,
@@ -130,14 +130,14 @@ public class Cube {
             0.0f, 1.0f,
             // TOP
             0.0f, 0.0f,
-            1.0f, 0.0f,
-            0.0f, 1.0f,
-            1.0f, 1.0f,
+            0.6f, 0.0f,
+            0.0f, 1.5f,
+            0.6f, 1.5f,
             // BOTTOM
-            1.0f, 0.0f,
-            1.0f, 1.0f,
+            0.6f, 0.0f,
+            0.6f, 1.5f,
             0.0f, 0.0f,
-            0.0f, 1.0f
+            0.0f, 1.5f
     };
     private FloatBuffer normalBuffer;
 
