@@ -44,7 +44,7 @@ public class SquareFragment extends Fragment  {
             Bundle savedInstanceState) {
 //        view = new OpenGLBookShowView(getActivity());
         view=(OpenGLBookShowView) inflater.inflate(R.layout.fragment_opengl_square, container, false);
-        view.setBackgroundResource(R.drawable.bu3);
+//        view.setBackgroundResource(R.drawable.bu3);
         return view;
     }
 

@@ -1,6 +1,7 @@
 package com.example.activity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.example.animatetest.R;
 import com.example.animation.FlipAnimation;
 import com.example.common.util.Utils;
@@ -74,7 +76,7 @@ public class MainActivity extends ActionBarActivity {
         intView();
         intData();
         setListener();
-        startAnimation();
+//        startAnimation();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Toast.makeText(this, "侧滑或点击菜单可以显示更多哦~", Toast.LENGTH_SHORT).show();
         drawerListView.setAdapter(new ArrayAdapter<String>(this, R.layout.item_filename, drawerList));
@@ -232,6 +234,15 @@ public class MainActivity extends ActionBarActivity {
         list.add(bt3);
         list.add(bt4);
         list.add(bt5);
+        hideButtons();
+    }
+    
+    private void showButtons(){
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setVisibility(View.VISIBLE);
+        }
+    }
+    private void hideButtons(){
         for (int i = 0; i < list.size(); i++) {
             list.get(i).setVisibility(View.GONE);
         }
@@ -282,7 +293,9 @@ public class MainActivity extends ActionBarActivity {
         case android.R.id.home:
             if (drawLayout.isDrawerOpen(GravityCompat.START)) {
                 drawLayout.closeDrawers();
+                showButtons();
             } else {
+                hideButtons();
                 drawLayout.openDrawer(GravityCompat.START);
             }
             break;

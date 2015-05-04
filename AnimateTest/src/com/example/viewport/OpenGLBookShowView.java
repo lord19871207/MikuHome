@@ -52,9 +52,9 @@ public class OpenGLBookShowView extends GLSurfaceView implements IOpenGLDemo, Ru
 
     public OpenGLBookShowView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setZOrderOnTop(true);//将view放到顶端
-        setEGLConfigChooser(8,8,8,8,16,0);
-        getHolder().setFormat(PixelFormat.TRANSLUCENT);//设置透明
+//        setZOrderOnTop(true);//将view放到顶端
+//        setEGLConfigChooser(8,8,8,8,16,0);
+//        getHolder().setFormat(PixelFormat.TRANSLUCENT);//设置透明
         if(attrs.getAttributeResourceValue(null, "modeltype", 0)!=0){
             init_model(1);
         }else{
