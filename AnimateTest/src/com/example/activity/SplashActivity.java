@@ -2,11 +2,11 @@ package com.example.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
 
 import com.example.animatetest.R;
@@ -21,6 +21,18 @@ public class SplashActivity extends Activity{
 		RelativeLayout view1=new RelativeLayout(this);
 		view1.addView(view);
 		view1.setBackgroundResource(R.drawable.cat);
+		
+		final ScaleAnimation animation =new ScaleAnimation(0.0f, 1.4f, 0.0f, 1.4f,
+		        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		        animation.setDuration(2000);//设置动画持续时间
+		        /** 常用方法 */
+		        //animation.setRepeatCount(int repeatCount);//设置重复次数
+		        //animation.setFillAfter(boolean);//动画执行完后是否停留在执行完的状态 
+		
+		
+		
+		
+		
 		setContentView(view1);
 		YRotateAnimation openAnimation=new YRotateAnimation();
 		view.startAnimation(openAnimation);

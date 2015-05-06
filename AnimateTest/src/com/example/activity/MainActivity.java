@@ -55,6 +55,7 @@ public class MainActivity extends ActionBarActivity {
     protected static final int BITMAPMESHFRAGMENT_DEMO5 = 0x0005; // 三张图片切换
     protected static final int ROTATE_TRANSFLATE_DEMO = 0x0006; // opengl实现的三张图片切换
     protected static final int AUTO_SCROLL = 0x0007;// 上下自动滚屏
+    protected static final int SCALEIMAGE = 0x0008;// OPEN动画
     private ArrayList<String> drawerList;
     private PullToZoomListView drawerListView;
     private FragmentManager manager;
@@ -115,6 +116,11 @@ public class MainActivity extends ActionBarActivity {
 //                    Intent intent = new Intent(MainActivity.this, BookcontentActivity.class);
 //                    startActivity(intent);
                     break;
+                case SCALEIMAGE: // 
+                  Intent intent = new Intent(MainActivity.this, ScaleActivity.class);
+                  startActivity(intent);
+                  break;
+                    
                 default:
                     break;
                 }
@@ -293,7 +299,7 @@ public class MainActivity extends ActionBarActivity {
         case android.R.id.home:
             if (drawLayout.isDrawerOpen(GravityCompat.START)) {
                 drawLayout.closeDrawers();
-                showButtons();
+//                showButtons();
             } else {
                 hideButtons();
                 drawLayout.openDrawer(GravityCompat.START);

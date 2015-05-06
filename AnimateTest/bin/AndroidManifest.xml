@@ -37,6 +37,12 @@
             android:name="com.example.activity.CubeActivity" >
         </activity>
         
+        <activity
+            android:name="com.example.activity.ScaleActivity" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            >
+        </activity>
+        
     </application>
 
 </manifest>
